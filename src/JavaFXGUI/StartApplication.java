@@ -257,7 +257,7 @@ public class StartApplication extends Application {
 					String name = student.get(field.get("NAME"));
 					int grade = Integer.parseInt(student.get(field.get("GR")));
 					Student st = new Student (name,grade,id);
-					st.setTime(student.get(field.get("TIME")));
+					st.setDepTime(student.get(field.get("DEPTIME")));
 					st.setReason(student.get(field.get("REASON")));
 					st.setArrTime(student.get(field.get("ARRTIME")));
 					st.setExcused(student.get(field.get("EXCUSED")));

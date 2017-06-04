@@ -14,7 +14,8 @@ public class StudentProperty {
 	private SimpleStringProperty studentID;
 	private ArrayList<SimpleStringProperty> reason = new ArrayList<SimpleStringProperty>();
 	private SimpleStringProperty date;
-	private ArrayList<SimpleStringProperty> time = new ArrayList<SimpleStringProperty>();
+	private SimpleStringProperty time;
+	private ArrayList<SimpleStringProperty> depTime = new ArrayList<SimpleStringProperty>();
 	private ArrayList<SimpleStringProperty> excused = new ArrayList<SimpleStringProperty>();
 	private ArrayList<SimpleStringProperty> arrTime = new ArrayList<SimpleStringProperty>();
 	
@@ -30,9 +31,7 @@ public class StudentProperty {
 			reason.add(new SimpleStringProperty(st.getReason().get(i)));
 		}
 		date = new SimpleStringProperty(st.getDate());
-		for(int i = 0;i<st.getTime().size();i++){
-			time.add(new SimpleStringProperty(st.getTime().get(i)));
-		}
+		time = new SimpleStringProperty(st.getTime());
 		for(int i = 0;i<st.getExcused().size();i++){
 			excused.add(new SimpleStringProperty(st.getExcused().get(i)));
 		}
@@ -65,8 +64,8 @@ public class StudentProperty {
 		this.studentID.set(studentID);
 	}
 
-	public ArrayList<SimpleStringProperty> getReason() {
-		return reason;
+	public String getReason(int i) {
+		return reason.get(i).get();
 	}
 
 	public void setReason(String reason) {
@@ -82,30 +81,39 @@ public class StudentProperty {
 		this.date.set(date);
 	}
 	
-	public ArrayList<SimpleStringProperty> getExcused() {
-		return excused;
+	public String getExcused(int i) {
+		return excused.get(i).get();
 	}
 
 	public void setExcused(String excused) {
 		SimpleStringProperty e = new SimpleStringProperty(excused);
 		this.excused.add(e);
 	}
-	
-	public ArrayList<SimpleStringProperty> getArrTime() {
-		return arrTime;
+	public String getDepTime(int i){
+//		String dt = "";
+//		for(int i = 0;i<depTime.size();i++){
+//			dt+=depTime.get(i)+"\n";
+//		}return dt;
+		return depTime.get(0).get();
+	}
+	public void setDepTime(String depTime){
+		SimpleStringProperty d = new SimpleStringProperty(depTime);
+		this.depTime.add(d);
+	}
+	public String getArrTime(int i) {
+		return arrTime.get(i).get();
 	}
 
 	public void setArrTime(String arrTime) {
 		SimpleStringProperty a = new SimpleStringProperty(arrTime);
 		this.arrTime.add(a);
 	}
-	public ArrayList<SimpleStringProperty> getTime() {
-		return time;
+	public String getTime() {
+		return time.get();
 	}
 
 	public void setTime(String time) {
-		SimpleStringProperty t = new SimpleStringProperty(time);
-		this.time.add(t);
+		this.time.set(time);
 	}
 	
 	

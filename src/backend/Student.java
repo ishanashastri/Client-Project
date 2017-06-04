@@ -17,7 +17,8 @@ public class Student implements Comparable<Student>{
 	private String studentID;
 	private ArrayList<String> reason = new ArrayList<String>();
 	private String date;
-	private ArrayList<String> time = new ArrayList<String>();
+	private String time;
+	private ArrayList<String> depTime = new ArrayList<String>();
 	private ArrayList<String> excused = new ArrayList<String>();
 	private ArrayList<String> arrTime = new ArrayList<String>();
 
@@ -38,8 +39,8 @@ public class Student implements Comparable<Student>{
 		
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 		LocalTime todayTime = LocalTime.now();
-		time.add(formatter.format(todayTime));
-		
+		time = formatter.format(todayTime);
+		depTime.add(time);
 	}
 	
 
@@ -57,8 +58,8 @@ public class Student implements Comparable<Student>{
 		date = todayDate.toString();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 		LocalTime todayTime = LocalTime.now();
-		time.add(formatter.format(todayTime));
-
+		time = formatter.format(todayTime);
+		depTime.add(time);
 	}
 
 	
@@ -92,12 +93,12 @@ public class Student implements Comparable<Student>{
 		this.reason.add(reason);
 	}
 	
-	public ArrayList<String> getTime(){
+	public String getTime(){
 		return time;
 	}
 	
 	public void setTime(String t){
-		time.add(t);
+		time = t;
 	}
 	
 	public String getDate(){
@@ -111,6 +112,12 @@ public class Student implements Comparable<Student>{
 	}
 	public void setExcused(String excused) {
 		this.excused.add(excused);
+	}
+	public void setDepTime(String depTime){
+		this.depTime.add(depTime);
+	}
+	public ArrayList<String> getDepTime(){
+		return depTime;
 	}
 	public void setArrTime(String arrTime) {
 		this.arrTime.add(arrTime);

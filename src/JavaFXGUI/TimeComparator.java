@@ -13,7 +13,7 @@ public class TimeComparator implements Comparator<Student>{
 	@Override
 	
 	public int compare(Student o1, Student o2) {
-		return o1.getTime().get(0).compareTo(o2.getTime().get(0));
+		return o1.getTime().compareTo(o2.getTime());
 	}
 
 }

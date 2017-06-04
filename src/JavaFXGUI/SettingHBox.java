@@ -209,9 +209,7 @@ public class SettingHBox extends HBox{
 			htmlIn = htmlIn + "<td>" + st.getStudentID() + "</td>";
 			htmlIn = htmlIn + "<td>" + st.getName() + "</td>";
 			htmlIn = htmlIn + "<td>" + st.getGrade() + "</td>";
-			for(int i = 0;i<st.getTime().size();i++){
-				htmlIn = htmlIn + "<td>" + st.getTime().get(i) + "</td>";
-			}
+			htmlIn = htmlIn + "<td>" + st.getTime() + "</td>";
 			for(int i = 0;i<st.getReason().size();i++){
 				htmlIn = htmlIn + "<td>" + st.getReason().get(i) + "</td>";
 			}
@@ -242,8 +240,8 @@ public class SettingHBox extends HBox{
 			for(int i = 0;i<st.getExcused().size();i++){
 				htmlOut = htmlOut + "<td>" + st.getExcused().get(i) + "</td>";
 			}
-			for(int i = 0;i<st.getTime().size();i++){
-				htmlOut = htmlOut + "<td>" + st.getTime().get(i) + "</td>";
+			for(int i = 0;i<st.getDepTime().size();i++){
+				htmlOut = htmlOut + "<td>" + st.getDepTime().get(i) + "</td>";
 			}
 			for(int i = 0;i<st.getArrTime().size();i++){
 				htmlOut = htmlOut + "<td>" + st.getArrTime().get(i) + "</td>";
@@ -334,9 +332,7 @@ public class SettingHBox extends HBox{
 				writer.print (temp.get(i).getName() + ", ");
 				writer.print (temp.get(i).getStudentID() + ", ");
 				writer.print (temp.get(i).getGrade() + ", ");
-				for(int j = 0;j<temp.get(i).getTime().size();j++){
-					writer.print (temp.get(i).getTime().get(j) + ", ");
-				}
+				writer.print (temp.get(i).getTime() + ", ");
 				for(int j = 0; j< temp.get(i).getReason().size(); j++){
 					writer.print (temp.get(i).getReason().get(j) + ", ");
 				}
@@ -369,8 +365,8 @@ public class SettingHBox extends HBox{
 				for(int j = 0;j<temp.get(i).getExcused().size();j++){
 					writerOutIn.print (temp.get(i).getExcused().get(j) + ", ");
 				}
-				for(int j = 0;j<temp.get(i).getTime().size();j++){
-					writerOutIn.print (temp.get(i).getTime().get(j) + ", ");
+				for(int j = 0;j<temp.get(i).getDepTime().size();j++){
+					writerOutIn.print (temp.get(i).getDepTime().get(j) + ", ");
 				}
 				for(int j = 0;j<temp.get(i).getArrTime().size();j++){
 					writerOutIn.print (temp.get(i).getArrTime().get(j) + ", ");
@@ -601,11 +597,11 @@ public class SettingHBox extends HBox{
 			columnList.get(i).prefWidthProperty().bind(tableSignIn.widthProperty().multiply(widths[i]));
 			if (i != 3){
 				columnList.get(i).setCellFactory(column -> {
-					return new TableCell<StudentProperty, Object>() {
+					return new TableCell<StudentProperty, String>() {
 						@Override
-						protected void updateItem(Object item, boolean empty) {
+						protected void updateItem(String item, boolean empty) {
 							super.updateItem(item, empty);
-							Text text = new Text(item.toString());
+							Text text = new Text(item);
 							text.wrappingWidthProperty().bind(getTableColumn().widthProperty()); // Setting the wrapping width to the Text
 							text.setTextAlignment(TextAlignment.CENTER);
 							setGraphic(text);	
@@ -633,7 +629,7 @@ public class SettingHBox extends HBox{
 		columnList.get(4).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				ArrayList<String>>("reason"));
 		columnList.get(5).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("time"));
+				String>("time"));
 
 		columnList.get(5).setSortable(true);
 //		columnList.get(5).setComparator(new TimeComparator());
@@ -663,11 +659,11 @@ public class SettingHBox extends HBox{
 			columnListOut.get(i).prefWidthProperty().bind(tableSignOut.widthProperty().multiply(widthsOut[i]));
 			if (i != 3){
 				columnListOut.get(i).setCellFactory(column -> {
-					return new TableCell<StudentProperty, Object>() {
+					return new TableCell<StudentProperty, String>() {
 						@Override
-						protected void updateItem(Object item, boolean empty) {
+						protected void updateItem(String item, boolean empty) {
 							super.updateItem(item, empty);
-							Text text = new Text(item.toString());
+							Text text = new Text(item);
 							text.wrappingWidthProperty().bind(getTableColumn().widthProperty()); // Setting the wrapping width to the Text
 							text.setTextAlignment(TextAlignment.CENTER);
 							setGraphic(text);	
@@ -691,8 +687,9 @@ public class SettingHBox extends HBox{
 				ArrayList<String>>("reason"));
 		columnListOut.get(5).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				ArrayList<String>>("excused"));
+		String depTime = "";
 		columnListOut.get(6).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("time"));
+				ArrayList<String>>("depTime"));
 		columnListOut.get(7).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				ArrayList<String>>("arrTime"));
 

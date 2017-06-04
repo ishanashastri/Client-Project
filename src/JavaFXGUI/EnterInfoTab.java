@@ -252,9 +252,7 @@ public class EnterInfoTab extends Tab{
 					printWriter.print("\"" + st.getStudentID() + "\",");
 					printWriter.print("\"" + st.getName() + "\",");
 					printWriter.print("\"" + st.getGrade() + "\",");
-					for(int i = 0;i<st.getTime().size();i++){
-						printWriter.print("\"" + st.getTime().get(i) + "\",");
-					}
+					printWriter.print("\"" + st.getTime() + "\",");
 					for(int i = 0;i<st.getReason().size();i++){
 						printWriter.print("\"" + st.getReason().get(i) + "\",");
 					}
@@ -288,8 +286,8 @@ public class EnterInfoTab extends Tab{
 					for(int i = 0;i<st.getExcused().size();i++){
 						printWriter.print("\"" + st.getExcused().get(i) + "\",");
 					}
-					for(int i = 0;i<st.getTime().size();i++){
-						printWriter.print("\"" + st.getTime().get(i) + "\",");
+					for(int i = 0;i<st.getDepTime().size();i++){
+						printWriter.print("\"" + st.getDepTime().get(i) + "\",");
 					}
 					for(int i = 0;i<st.getArrTime().size();i++){
 						printWriter.print("\"" + st.getArrTime().get(i) + "\",");
