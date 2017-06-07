@@ -94,7 +94,7 @@ public class EnterInfoTab extends Tab{
 //			infoOptionSelect.removeChoiceBox();
 			if (stringData.equals("+++")){
 				v ++;
-				infoOptionSelect.removeChoiceBox();
+//				infoOptionSelect.addChoiceBox(true, infoOptionSelect);
 			}
 			else if (stringData.equals("++")&& version == v){
 				page++;
@@ -106,7 +106,7 @@ public class EnterInfoTab extends Tab{
 				else{
 					infoOptionSelect.addPage(stringData);
 				}
-				infoOptionSelect.removeChoiceBox();
+//				infoOptionSelect.addChoiceBox(true, infoOptionSelect);
 			}
 			else if (stringData.equals("++++")){
 				stringData=file.nextLine();
@@ -129,13 +129,13 @@ public class EnterInfoTab extends Tab{
 						data2.add(stringData);
 						stringData=file.nextLine();
 					}
-					infoOptionSelect.splitScreen(page+1, title1, title2, data1, data2);
-					infoOptionSelect.addChoiceBox();
+					infoOptionSelect.splitScreen(page+1, title1, title2, data1, data2, infoOptionSelect);
 				}
+//				infoOptionSelect.addChoiceBox(false, infoOptionSelect);
 			}
 			else if (version == v){
 				infoOptionSelect.addButton(page, stringData, stringData);
-				infoOptionSelect.removeChoiceBox();
+//				infoOptionSelect.addChoiceBox(true, infoOptionSelect);
 			}
 		}	
 		file.close();
@@ -143,8 +143,7 @@ public class EnterInfoTab extends Tab{
 
 		Button backButton = new Button("Back to Start");
 		backButton.setOnAction(e -> goBackToHome());
-		backButton.setPrefSize(150, 20);
-//		backButton.getStylesheets().add(getClass().getResource("backButton").toString());
+		backButton.setPrefSize(175, 20);
 
 		HBox navHBox = new HBox();
 		navHBox.setPadding(new Insets(15, 12, 15, 12));
@@ -172,36 +171,6 @@ public class EnterInfoTab extends Tab{
 		setContent(content);
 	}
 
-	public void updateScrollPane(ArrayList<String> option){
-
-		summaryLeftVBox.getChildren().clear();
-		summariesOptions = new ArrayList<AnimatedLabel>();
-
-		Separator separator = new Separator();
-		summaryLeftVBox.getChildren().add(separator);
-		ArrayList<String> titleList = infoOptionSelect.getPageTitles();
-		for (int i = 0; i < titleList.size(); i++){
-			summariesOptions.add(new AnimatedLabel (titleList.get(i) +" "+option.get(i)));
-		}
-
-		for (int i = 0; i < summariesOptions.size(); i++){
-			summariesOptions.get(i).getStyleClass().add("summaryLabel");
-			summariesOptions.get(i).setWrapText(true);
-			summaryLeftVBox.getChildren().add(summariesOptions.get(i));
-		}
-	}
-	public void updateAnimation(int page){
-		
-		for (int i = 0; i < summariesOptions.size(); i++){
-			if ( page == i){
-				summariesOptions.get(i).play();
-
-			}
-			else{
-				summariesOptions.get(i).stop();
-			}
-		}
-	}
 	/**
 	 * Transfers focus to the previous tab.
 	 */
@@ -223,13 +192,15 @@ public class EnterInfoTab extends Tab{
 	 */
 	public void addData(ArrayList<String> option){
 
-		if (option.get(0).isEmpty()){
+		if (option.get(0).isEmpty() || option.get(1).isEmpty()){
 			alert.play();
 		}
 		else{
 			if (!goingIn){
 				student.setReason(option.get(0));
 				student.setExcused(option.get(1));
+				System.out.println(option.get(0));
+				System.out.println(option.get(1));
 				data.get("outin").add(student);
 			}
 			else{

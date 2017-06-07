@@ -53,6 +53,8 @@ public class OptionSelect extends VBox{
 	private FadeTransition ftOut;
 	private ArrayList<OptionHBox> optionHBoxArray = new ArrayList<OptionHBox>();
 	private ChoiceBox c;
+	private HBox hb;
+	private ToggleGroup tg;
 	/**
 	 * Constructor. The data of the optionSelect is represented by an ArrayList of Strings that indicates what options where selected.
 	 * @param w Width of the optionSelect
@@ -105,19 +107,10 @@ public class OptionSelect extends VBox{
 		getStyleClass().add("optionSelect");
 		HBox contentHBox = new HBox();
 
-//		pageButtonLeft = new Button();
-//		pageButtonLeft.getStyleClass().add("pageButton-left");
-//		pageButtonLeft.setOnAction(new NextHandler(false));
-
-//		pageButtonRight = new Button();
-//		pageButtonRight.getStyleClass().add("pageButton-right");
-//		pageButtonRight.setOnAction(new NextHandler(true));
-		
-//		contentHBox.getChildren().add(pageButtonLeft);
 		buttonVBox = new VBox();
 		buttonVBox.getStyleClass().add("buttonVBox");
 
-		contentHBox.getChildren().addAll(buttonVBox);//, pageButtonRight);
+		contentHBox.getChildren().addAll(buttonVBox);
 		getChildren().add(contentHBox);
 
 		bottomHBox = new HBox();
@@ -159,31 +152,11 @@ public class OptionSelect extends VBox{
 	 * @param pg The page to be displayed
 	 */
 	private void updateState(int pg){
-//		if(pg == 0 && pg == buttonList.size()-1){
-//			pageButtonLeft.setDisable(true);
-//			pageButtonRight.setDisable(true);
-//		}
-//		else if(pg == 0 && pg == buttonList.size()-2){
-//			pageButtonLeft.setDisable(true);
-//			pageButtonRight.setDisable(true);
-//		}
-//		else if (pg == 0){
-//			pageButtonLeft.setDisable(true);
-//			pageButtonRight.setDisable(false);
-//		}
-//		else if (pg == buttonList.size()-1){
-//			pageButtonLeft.setDisable(false);
-//			pageButtonRight.setDisable(true);
-//		}
-//		else{
-//			pageButtonLeft.setDisable(false);
-//			pageButtonRight.setDisable(false);
-//		}
 		titleLabel.setText(title.get(pg));
 		page = pg;
 
 		buttonVBox.getChildren().clear();
-		double buttonHeight = (double)(height-80)/ (buttonList.get(page).size()+1);
+		double buttonHeight = (double)(height-100)/ (buttonList.get(page).size()+1);
 		double buttonWidth = (double)(width);
 
 		if (buttonList.get(page).size() >=3){
@@ -235,57 +208,65 @@ public class OptionSelect extends VBox{
 		optionHBoxArray.get(page).setPrefWidth(buttonWidth);
 
 		buttonVBox.getChildren().add(optionHBoxArray.get(page));
-		tabToBeClosed.updateScrollPane(option);
-		tabToBeClosed.updateAnimation(pg);
+
 	}
-	public void splitScreen(int page, String title1, String title2, ArrayList<String> data1, ArrayList<String> data2){
+	public void splitScreen(int page, String title1, String title2, ArrayList<String> data1, ArrayList<String> data2, OptionSelect o){
 		ArrayList<OptionButton> left = new ArrayList<OptionButton>();
 		for(int i =0;i<data1.size()-1;i++){
 			OptionButton opt = new OptionButton(data1.get(i), data1.get(i), page);
 			left.add(opt);
 		}
-		ArrayList<OptionButton> right = new ArrayList<OptionButton>();
-		VBox bV = new VBox();
-		for(int i = 0; i< data2.size();i++){
-			OptionButton opt = new OptionButton(data2.get(i), data2.get(i), page);
-			opt.setPrefWidth((double)width-100);
-			opt.setPrefHeight((double)(height-80)/(buttonList.get(page).size()+1));
-			right.add(opt);
-		}
-		bV.getChildren().add(right.get(page));
-		bV.getChildren().add(left.get(page));
-		
-		
 		buttonList.get(page).addAll(left) ;	
 		option.add("");
-		OptionHBox textFieldOtherHBox  = new OptionHBox(width, this, buttonList.size()-1);
-		textFieldOtherHBox.getStyleClass().add("optionTextFieldOther");
-		optionHBoxArray.add(textFieldOtherHBox);
+
+		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
 		
 		updateState(0);	
-
+		addChoiceBox(false,o);
+		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
 		
 	}
-	public void addChoiceBox(){
-		c = new ChoiceBox(FXCollections.observableArrayList("Health Room", "Parent", "Other"));
-		c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-			public void changed(ObservableValue ov, Number value, Number new_value) {
-//				new ChoiceHandler(c.getSelectionModel().getSelectedItem().toString(),this);
-				addInfo(c.getSelectionModel().getSelectedItem().toString());
+	public void addChoiceBox(boolean rem, OptionSelect o){
+		RadioButton h = new RadioButton("Health Room");
+		h.getStyleClass().add("RadioButton");
+		RadioButton p = new RadioButton("Parent");
+		p.getStyleClass().add("RadioButton");
+		
+		Label l = new Label("Enter who you were excused by: ");
+		l.getStyleClass().add("RadioButton");
+		
+		tg = new ToggleGroup();
+		h.setToggleGroup(tg); p.setToggleGroup(tg);
+		tg.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
+			for(String opt: option){
+				System.out.println(opt);
 			}
+			String[] pts = tg.getSelectedToggle().toString().split("'");
+			option.add(1,pts[1]);
+			submitButton.requestFocus();
 		});
-		c.setMaxSize(100,100);
-		buttonVBox.getChildren().add(c);
-		JRadioButton h = new JRadioButton("Health Room");
-		JRadioButton p = new JRadioButton("Parent");
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(p); bg.add(h);
+		
+		HBox hb = new HBox(70); 
+		hb.getChildren().addAll(l,h,p); 
+		hb.setAlignment(Pos.CENTER);
+		
+		buttonVBox.getChildren().add(hb);
+		System.out.println("called1");
 		
 		submitButton.requestFocus();
+		if(rem){
+			removeChoiceBox();
+		}
 	}
 	public void removeChoiceBox(){
+		if(buttonVBox.getChildren().contains(optionHBoxArray)){
+			buttonVBox.getChildren().remove(hb);
+		}
+		System.out.println("called");
 //		if(buttonVBox.getChildren().contains(c)){
-			buttonVBox.getChildren().remove(c);
+////			System.out.println(buttonVBox.getChildren().contains(c));
+//			c.setDisable(true);
+//			buttonVBox.getChildren().remove(c);
 //		}
 	}
 	/**

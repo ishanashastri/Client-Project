@@ -280,21 +280,11 @@ public class EnterStudentTab extends Tab {
 		int j = 0;
 		for (int i =0; i < data.get("outin").getStudentList().size(); i++){
 			if (student.equals(data.get("outin").getStudentList().get(i))){
-				System.out.println(student.getArrTime());
-				System.out.println(student.getArrTime().equals("None"));
+//				System.out.println(student.getArrTime());
+//				System.out.println(student.getArrTime().equals("None"));
 				if(student.getArrTime().equals("None")){
 					j = i;
 					outin=true;
-				}else{
-					if (signIn){
-						tab3= new EnterInfoTab(parent, this, "Enter Information",  data, signIn, student);
-					}
-					else{
-						tab3 = new EnterInfoTab(parent, this, "Enter Information",  data, signIn, student);
-					}
-					setDisable(true);
-					parent.getTabs().add(tab3);
-					parent.getSelectionModel().select(tab3);
 				}
 			}
 		}
@@ -304,8 +294,11 @@ public class EnterStudentTab extends Tab {
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 				LocalTime todayTime = LocalTime.now();
 				String time = formatter.format(todayTime);
-	
-				data.get("outin").getStudentList().get(j).setArrTime(time);
+				if(data.get("outin").getStudentList().get(j).getArrTime().length()>data.get("outin").getStudentList().get(j).getTime().length()){
+					data.get("outin").getStudentList().get(j).setTime(time);
+				}else{
+					data.get("outin").getStudentList().get(j).setArrTime(time);
+				}
 				LocalDate todayDate = LocalDate.now();
 				String date = todayDate.toString();
 				File f = new File("src/backup/" + date+"-OUT.csv");
@@ -337,8 +330,7 @@ public class EnterStudentTab extends Tab {
 				}
 				goBack(true);
 		}
-		else 
-		{
+		else{
 			if (signIn){
 				tab3= new EnterInfoTab(parent, this, "Enter Information",  data, signIn, student);
 			}
@@ -349,9 +341,6 @@ public class EnterStudentTab extends Tab {
 			parent.getTabs().add(tab3);
 			parent.getSelectionModel().select(tab3);
 		}
-
 	}
-
-
-
 }
+

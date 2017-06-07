@@ -205,14 +205,14 @@ public class StartApplication extends Application {
 			int i = 0;
 			for(String fieldName: file.nextLine().split(",")){
 				field.put(fieldName.trim(), i++);
-				System.out.println(field);
 			}
-
+			
 			//Load in student data
 			ArrayList<ArrayList<String>> studentData = new ArrayList<ArrayList<String>>();
 			while(file.hasNext()){
 				ArrayList<String> aStudent = new ArrayList<String>();
 				String line = file.nextLine();
+//				System.out.println(line);
 //				System.out.println("nl"+line);
 				line = line.substring(1);
 				line = line.substring(0,line.length()-1);

@@ -278,6 +278,9 @@
 	-fx-alignment: center;
 }
 
+.RadioButton { 
+	-fx-font-size: 15px;
+}
 .tab{
 	-fx-background-color: #FFF;
 	-fx-border-color: #eeeeee;
