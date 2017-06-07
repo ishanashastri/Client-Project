@@ -1,6 +1,4 @@
 package backend;
-import java.util.ArrayList;
-
 import javafx.beans.property.*;
 
 /**
@@ -12,12 +10,12 @@ public class StudentProperty {
 	private SimpleStringProperty name;
 	private SimpleIntegerProperty grade;
 	private SimpleStringProperty studentID;
-	private ArrayList<SimpleStringProperty> reason = new ArrayList<SimpleStringProperty>();
+	private SimpleStringProperty reason;
+	private SimpleStringProperty note;
 	private SimpleStringProperty date;
 	private SimpleStringProperty time;
-	private ArrayList<SimpleStringProperty> depTime = new ArrayList<SimpleStringProperty>();
-	private ArrayList<SimpleStringProperty> excused = new ArrayList<SimpleStringProperty>();
-	private ArrayList<SimpleStringProperty> arrTime = new ArrayList<SimpleStringProperty>();
+	private SimpleStringProperty excused;
+	private SimpleStringProperty arrTime;
 	
 	/**
 	 * Constructs StudentProperty from a Student and copies all the data.
@@ -27,17 +25,12 @@ public class StudentProperty {
 		name = new SimpleStringProperty(st.getName());
 		grade = new SimpleIntegerProperty(st.getGrade());
 		studentID = new SimpleStringProperty(st.getStudentID());
-		for(int i = 0; i<st.getReason().size();i++){
-			reason.add(new SimpleStringProperty(st.getReason().get(i)));
-		}
+		reason = new SimpleStringProperty(st.getReason());
+		note = new SimpleStringProperty(st.getNote());
 		date = new SimpleStringProperty(st.getDate());
 		time = new SimpleStringProperty(st.getTime());
-		for(int i = 0;i<st.getExcused().size();i++){
-			excused.add(new SimpleStringProperty(st.getExcused().get(i)));
-		}
-		for(int i = 0;i<st.getArrTime().size();i++){
-			arrTime.add(new SimpleStringProperty(st.getArrTime().get(i)));
-		}
+		excused = new SimpleStringProperty(st.getExcused());
+		arrTime = new SimpleStringProperty(st.getArrTime());
 	}
 
 	public String getName() {
@@ -61,16 +54,23 @@ public class StudentProperty {
 	}
 
 	public void setStudentID(String studentID) {
-		this.studentID.set(studentID);
+		this.studentID.concat("\n"+studentID);
 	}
 
-	public String getReason(int i) {
-		return reason.get(i).get();
+	public String getReason() {
+		return reason.get();
 	}
 
 	public void setReason(String reason) {
-		SimpleStringProperty r = new SimpleStringProperty(reason);
-		this.reason.add(r);
+		this.reason.set(reason);
+	}
+
+	public String getNote() {
+		return note.get();
+	}
+
+	public void setNote(String note) {
+		this.note.set(note);
 	}
 	
 	public String getDate() {
@@ -81,32 +81,20 @@ public class StudentProperty {
 		this.date.set(date);
 	}
 	
-	public String getExcused(int i) {
-		return excused.get(i).get();
+	public String getExcused() {
+		return excused.get();
 	}
 
 	public void setExcused(String excused) {
-		SimpleStringProperty e = new SimpleStringProperty(excused);
-		this.excused.add(e);
+		this.excused.set(excused);
 	}
-	public String getDepTime(int i){
-//		String dt = "";
-//		for(int i = 0;i<depTime.size();i++){
-//			dt+=depTime.get(i)+"\n";
-//		}return dt;
-		return depTime.get(0).get();
-	}
-	public void setDepTime(String depTime){
-		SimpleStringProperty d = new SimpleStringProperty(depTime);
-		this.depTime.add(d);
-	}
-	public String getArrTime(int i) {
-		return arrTime.get(i).get();
+	
+	public String getArrTime() {
+		return arrTime.get();
 	}
 
 	public void setArrTime(String arrTime) {
-		SimpleStringProperty a = new SimpleStringProperty(arrTime);
-		this.arrTime.add(a);
+		this.arrTime.set(arrTime);
 	}
 	public String getTime() {
 		return time.get();

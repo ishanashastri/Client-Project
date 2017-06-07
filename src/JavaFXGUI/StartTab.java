@@ -374,9 +374,7 @@ public class StartTab extends Tab {
 				printWriter.print("\"" + st.getName() + "\",");
 				printWriter.print("\"" + st.getGrade() + "\",");
 				printWriter.print("\"" + st.getTime() + "\",");
-				for(int i = 0;i<st.getReason().size();i++){
-					printWriter.print("\"" + st.getReason().get(i) + "\",");
-				}
+				printWriter.print("\"" + st.getReason() + "\",");
 				printWriter.println();
 			}
 			printWriter.close();

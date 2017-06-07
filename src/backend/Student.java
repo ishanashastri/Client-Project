@@ -2,7 +2,6 @@ package backend;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Locale;
 
 
@@ -15,12 +14,13 @@ public class Student implements Comparable<Student>{
 	private String name;
 	private int grade;
 	private String studentID;
-	private ArrayList<String> reason = new ArrayList<String>();
+	private String reason;
+	private String note;
 	private String date;
 	private String time;
-	private ArrayList<String> depTime = new ArrayList<String>();
-	private ArrayList<String> excused = new ArrayList<String>();
-	private ArrayList<String> arrTime = new ArrayList<String>();
+	private String excused = "";
+	private String arrTime = "None";
+	
 
 	/**
 	 * Constructor. Initializes Date and Time at moment of creation
@@ -40,7 +40,7 @@ public class Student implements Comparable<Student>{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 		LocalTime todayTime = LocalTime.now();
 		time = formatter.format(todayTime);
-		depTime.add(time);
+		
 	}
 	
 
@@ -59,7 +59,7 @@ public class Student implements Comparable<Student>{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 		LocalTime todayTime = LocalTime.now();
 		time = formatter.format(todayTime);
-		depTime.add(time);
+
 	}
 
 	
@@ -83,14 +83,31 @@ public class Student implements Comparable<Student>{
 
 
 
-	public ArrayList<String> getReason() {
+	public String getReason() {
 		return reason;
 	}
 
 
 
 	public void setReason(String reason) {
-		this.reason.add(reason);
+		if(this.reason != null){
+			this.reason += ", " +reason;			
+		}else{
+			System.out.println("NULLEDEDED");
+			this.reason=reason;	
+		}
+	}
+
+
+
+	public String getNote() {
+		return note;
+	}
+
+
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 	
 	public String getTime(){
@@ -98,7 +115,12 @@ public class Student implements Comparable<Student>{
 	}
 	
 	public void setTime(String t){
-		time = t;
+		if(t != null){
+			time += ", " + t;
+		}else{
+//			System.out.println("time: " + this.time);
+			this.time=t;
+		}
 	}
 	
 	public String getDate(){
@@ -107,22 +129,20 @@ public class Student implements Comparable<Student>{
 	public void setDate(String d){
 		date = d;
 	}
-	public ArrayList<String> getExcused() {
+	public String getExcused() {
 		return excused;
 	}
 	public void setExcused(String excused) {
-		this.excused.add(excused);
-	}
-	public void setDepTime(String depTime){
-		this.depTime.add(depTime);
-	}
-	public ArrayList<String> getDepTime(){
-		return depTime;
+		this.excused = excused;
 	}
 	public void setArrTime(String arrTime) {
-		this.arrTime.add(arrTime);
+		if(this.arrTime.equals("None")){
+			this.arrTime = arrTime;
+		}else{
+			this.arrTime += ", " + arrTime;	
+		} 
 	}
-	public ArrayList<String> getArrTime() {
+	public String getArrTime() {
 		return arrTime;
 	}
 

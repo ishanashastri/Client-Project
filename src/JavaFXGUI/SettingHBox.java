@@ -210,9 +210,7 @@ public class SettingHBox extends HBox{
 			htmlIn = htmlIn + "<td>" + st.getName() + "</td>";
 			htmlIn = htmlIn + "<td>" + st.getGrade() + "</td>";
 			htmlIn = htmlIn + "<td>" + st.getTime() + "</td>";
-			for(int i = 0;i<st.getReason().size();i++){
-				htmlIn = htmlIn + "<td>" + st.getReason().get(i) + "</td>";
-			}
+			htmlIn = htmlIn + "<td>" + st.getReason() + "</td>";
 		}
 
 		String htmlOut = "<!DOCTYPE html> <html> <head>"
@@ -234,18 +232,10 @@ public class SettingHBox extends HBox{
 			htmlOut = htmlOut + "<td>" + st.getStudentID() + "</td>";
 			htmlOut = htmlOut + "<td>" + st.getName() + "</td>";
 			htmlOut = htmlOut + "<td>" + st.getGrade() + "</td>";
-			for(int i = 0;i<st.getReason().size();i++){
-				htmlOut = htmlOut + "<td>" + st.getReason().get(i) + "</td>";
-			}
-			for(int i = 0;i<st.getExcused().size();i++){
-				htmlOut = htmlOut + "<td>" + st.getExcused().get(i) + "</td>";
-			}
-			for(int i = 0;i<st.getDepTime().size();i++){
-				htmlOut = htmlOut + "<td>" + st.getDepTime().get(i) + "</td>";
-			}
-			for(int i = 0;i<st.getArrTime().size();i++){
-				htmlOut = htmlOut + "<td>" + st.getArrTime().get(i) + "</td>";
-			}
+			htmlOut = htmlOut + "<td>" + st.getReason() + "</td>";
+			htmlOut = htmlOut + "<td>" + st.getExcused() + "</td>";
+			htmlOut = htmlOut + "<td>" + st.getTime() + "</td>";
+			htmlOut = htmlOut + "<td>" + st.getArrTime() + "</td>";
 		}
 		htmlOut = htmlOut + "</tbody></table></body></html>";
 
@@ -333,9 +323,7 @@ public class SettingHBox extends HBox{
 				writer.print (temp.get(i).getStudentID() + ", ");
 				writer.print (temp.get(i).getGrade() + ", ");
 				writer.print (temp.get(i).getTime() + ", ");
-				for(int j = 0; j< temp.get(i).getReason().size(); j++){
-					writer.print (temp.get(i).getReason().get(j) + ", ");
-				}
+				writer.print (temp.get(i).getReason() + ", ");
 			}
 
 
@@ -359,18 +347,10 @@ public class SettingHBox extends HBox{
 				writerOutIn.print (temp.get(i).getName() + ", ");
 				writerOutIn.print (temp.get(i).getStudentID() + ", ");
 				writerOutIn.print (temp.get(i).getGrade() + ", ");
-				for(int j = 0;j<temp.get(i).getReason().size();j++){
-					writerOutIn.print (temp.get(i).getReason().get(j) + ", ");
-				}
-				for(int j = 0;j<temp.get(i).getExcused().size();j++){
-					writerOutIn.print (temp.get(i).getExcused().get(j) + ", ");
-				}
-				for(int j = 0;j<temp.get(i).getDepTime().size();j++){
-					writerOutIn.print (temp.get(i).getDepTime().get(j) + ", ");
-				}
-				for(int j = 0;j<temp.get(i).getArrTime().size();j++){
-					writerOutIn.print (temp.get(i).getArrTime().get(j) + ", ");
-				}
+				writerOutIn.print (temp.get(i).getReason() + ", ");
+				writerOutIn.print (temp.get(i).getExcused() + ", ");
+				writerOutIn.print (temp.get(i).getTime() + ", ");
+				writerOutIn.print (temp.get(i).getArrTime() + ", ");
 			}
 			
 			writerOutIn.close();
@@ -627,7 +607,7 @@ public class SettingHBox extends HBox{
 		columnList.get(3).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				Integer>("grade"));
 		columnList.get(4).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("reason"));
+				String>("reason"));
 		columnList.get(5).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				String>("time"));
 
@@ -684,14 +664,13 @@ public class SettingHBox extends HBox{
 		columnListOut.get(3).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				Integer>("grade"));
 		columnListOut.get(4).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("reason"));
+				String>("reason"));
 		columnListOut.get(5).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("excused"));
-		String depTime = "";
+				String>("excused"));
 		columnListOut.get(6).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("depTime"));
+				String>("time"));
 		columnListOut.get(7).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
-				ArrayList<String>>("arrTime"));
+				String>("arrTime"));
 
 		tableSignOut.setItems(goingOutIn);
 		return tableSignOut;

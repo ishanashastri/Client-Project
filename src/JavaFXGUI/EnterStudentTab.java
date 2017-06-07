@@ -280,15 +280,27 @@ public class EnterStudentTab extends Tab {
 		int j = 0;
 		for (int i =0; i < data.get("outin").getStudentList().size(); i++){
 			if (student.equals(data.get("outin").getStudentList().get(i))){
-				j = i;
-				outin=true;
-				
+				System.out.println(student.getArrTime());
+				System.out.println(student.getArrTime().equals("None"));
+				if(student.getArrTime().equals("None")){
+					j = i;
+					outin=true;
+				}else{
+					if (signIn){
+						tab3= new EnterInfoTab(parent, this, "Enter Information",  data, signIn, student);
+					}
+					else{
+						tab3 = new EnterInfoTab(parent, this, "Enter Information",  data, signIn, student);
+					}
+					setDisable(true);
+					parent.getTabs().add(tab3);
+					parent.getSelectionModel().select(tab3);
+				}
 			}
 		}
 		
 		if (outin){
-			if(student.getArrTime().size()==1){
-				System.out.println("None");
+//			if(student.getArrTime().equals("None")){
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 				LocalTime todayTime = LocalTime.now();
 				String time = formatter.format(todayTime);
@@ -324,43 +336,6 @@ public class EnterStudentTab extends Tab {
 					e.printStackTrace();
 				}
 				goBack(true);
-			}else{
-				
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
-				LocalTime todayTime = LocalTime.now();
-				LocalDate todayDate = LocalDate.now();
-				String date = todayDate.toString();
-				String time = formatter.format(todayTime);
-				student.setArrTime(student.getArrTime() + "\n" + time);
-				File f = new File("src/backup/" + date+"-OUT.csv");
-				
-				try {
-					f.createNewFile();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	
-				try {
-					PrintWriter printWriter = new PrintWriter (f);
-					printWriter.println("DATE,ID,NAME,GR,REASON,EXCUSED,TIME,ARRTIME");
-					for(Student st : data.get("outin").getStudentList()){
-						printWriter.print("\"" + st.getDate() + "\","); 
-						printWriter.print("\"" + st.getStudentID() + "\",");
-						printWriter.print("\"" + st.getName() + "\",");
-						printWriter.print("\"" + st.getGrade() + "\",");
-						printWriter.print("\"" + st.getReason() + "\",");
-						printWriter.print("\"" + st.getExcused() + "\",");
-						printWriter.print("\"" + st.getTime() + "\",");
-						printWriter.print("\"" + st.getArrTime() +"\",");
-						printWriter.println();
-					}
-					printWriter.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
 		}
 		else 
 		{

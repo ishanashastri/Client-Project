@@ -1,17 +1,25 @@
 package JavaFXGUI;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JComboBox;
+import javax.swing.JRadioButton;
 import javax.swing.JSplitPane;
 
 import org.omg.CORBA.SystemException;
 
 import backend.Student;
 import javafx.scene.layout.*;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.util.Duration;
 import javafx.animation.FadeTransition;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -39,11 +47,12 @@ public class OptionSelect extends VBox{
 	private Button submitButton;
 	private EnterInfoTab tabToBeClosed;
 	private Student student;
-	private Button pageButtonLeft;
-	private Button pageButtonRight; 
+//	private Button pageButtonLeft;
+//	private Button pageButtonRight; 
 	private FadeTransition ftIn;
 	private FadeTransition ftOut;
 	private ArrayList<OptionHBox> optionHBoxArray = new ArrayList<OptionHBox>();
+	private ChoiceBox c;
 	/**
 	 * Constructor. The data of the optionSelect is represented by an ArrayList of Strings that indicates what options where selected.
 	 * @param w Width of the optionSelect
@@ -96,19 +105,19 @@ public class OptionSelect extends VBox{
 		getStyleClass().add("optionSelect");
 		HBox contentHBox = new HBox();
 
-		pageButtonLeft = new Button();
-		pageButtonLeft.getStyleClass().add("pageButton-left");
-		pageButtonLeft.setOnAction(new NextHandler(false));
+//		pageButtonLeft = new Button();
+//		pageButtonLeft.getStyleClass().add("pageButton-left");
+//		pageButtonLeft.setOnAction(new NextHandler(false));
 
-		pageButtonRight = new Button();
-		pageButtonRight.getStyleClass().add("pageButton-right");
-		pageButtonRight.setOnAction(new NextHandler(true));
+//		pageButtonRight = new Button();
+//		pageButtonRight.getStyleClass().add("pageButton-right");
+//		pageButtonRight.setOnAction(new NextHandler(true));
 		
-		contentHBox.getChildren().add(pageButtonLeft);
+//		contentHBox.getChildren().add(pageButtonLeft);
 		buttonVBox = new VBox();
 		buttonVBox.getStyleClass().add("buttonVBox");
 
-		contentHBox.getChildren().addAll(buttonVBox, pageButtonRight);
+		contentHBox.getChildren().addAll(buttonVBox);//, pageButtonRight);
 		getChildren().add(contentHBox);
 
 		bottomHBox = new HBox();
@@ -150,32 +159,32 @@ public class OptionSelect extends VBox{
 	 * @param pg The page to be displayed
 	 */
 	private void updateState(int pg){
-		if(pg == 0 && pg == buttonList.size()-1){
-			pageButtonLeft.setDisable(true);
-			pageButtonRight.setDisable(true);
-		}
-		else if(pg == 0 && pg == buttonList.size()-2){
-			pageButtonLeft.setDisable(true);
-			pageButtonRight.setDisable(true);
-		}
-		else if (pg == 0){
-			pageButtonLeft.setDisable(true);
-			pageButtonRight.setDisable(false);
-		}
-		else if (pg == buttonList.size()-1){
-			pageButtonLeft.setDisable(false);
-			pageButtonRight.setDisable(true);
-		}
-		else{
-			pageButtonLeft.setDisable(false);
-			pageButtonRight.setDisable(false);
-		}
+//		if(pg == 0 && pg == buttonList.size()-1){
+//			pageButtonLeft.setDisable(true);
+//			pageButtonRight.setDisable(true);
+//		}
+//		else if(pg == 0 && pg == buttonList.size()-2){
+//			pageButtonLeft.setDisable(true);
+//			pageButtonRight.setDisable(true);
+//		}
+//		else if (pg == 0){
+//			pageButtonLeft.setDisable(true);
+//			pageButtonRight.setDisable(false);
+//		}
+//		else if (pg == buttonList.size()-1){
+//			pageButtonLeft.setDisable(false);
+//			pageButtonRight.setDisable(true);
+//		}
+//		else{
+//			pageButtonLeft.setDisable(false);
+//			pageButtonRight.setDisable(false);
+//		}
 		titleLabel.setText(title.get(pg));
 		page = pg;
 
 		buttonVBox.getChildren().clear();
 		double buttonHeight = (double)(height-80)/ (buttonList.get(page).size()+1);
-		double buttonWidth = (double)(width-100);
+		double buttonWidth = (double)(width);
 
 		if (buttonList.get(page).size() >=3){
 			buttonList.get(page).get(0).setPosStyle("top");
@@ -245,35 +254,40 @@ public class OptionSelect extends VBox{
 		}
 		bV.getChildren().add(right.get(page));
 		bV.getChildren().add(left.get(page));
-	
-		SplitPane splitPane = new SplitPane(new TableView(),
-                new VBox(new Label("some other content")));
-
-splitPane.setOrientation(Orientation.HORIZONTAL);
-
-// place splitPane as center
-BorderPane borderPane = new BorderPane(splitPane);
-
-borderPane.setTop(new MenuBar(new Menu()));
-
-Scene scene = new Scene(borderPane, 600, 400);
-//getChildren().show();
-		
-//		Component leftt = new List<OptionButton>();
-//		sp.setLeftComponent(leftt);
 		
 		
 		buttonList.get(page).addAll(left) ;	
-		buttonList.get(page).addAll(right);
 		option.add("");
-		
 		OptionHBox textFieldOtherHBox  = new OptionHBox(width, this, buttonList.size()-1);
 		textFieldOtherHBox.getStyleClass().add("optionTextFieldOther");
 		optionHBoxArray.add(textFieldOtherHBox);
 		
-		updateState(0);		
-	}
+		updateState(0);	
 
+		
+	}
+	public void addChoiceBox(){
+		c = new ChoiceBox(FXCollections.observableArrayList("Health Room", "Parent", "Other"));
+		c.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+			public void changed(ObservableValue ov, Number value, Number new_value) {
+//				new ChoiceHandler(c.getSelectionModel().getSelectedItem().toString(),this);
+				addInfo(c.getSelectionModel().getSelectedItem().toString());
+			}
+		});
+		c.setMaxSize(100,100);
+		buttonVBox.getChildren().add(c);
+		JRadioButton h = new JRadioButton("Health Room");
+		JRadioButton p = new JRadioButton("Parent");
+		ButtonGroup bg = new ButtonGroup();
+		bg.add(p); bg.add(h);
+		
+		submitButton.requestFocus();
+	}
+	public void removeChoiceBox(){
+//		if(buttonVBox.getChildren().contains(c)){
+			buttonVBox.getChildren().remove(c);
+//		}
+	}
 	/**
 	 * This is called by the ButtonHandler to add information to the Data.
 	 * @param mes The value of the button clicked to be added.
@@ -310,8 +324,8 @@ Scene scene = new Scene(borderPane, 600, 400);
 			ftOut.play();
 			page = page + 1;
 			ftIn.play();
-			pageButtonRight.setDisable(true);
-			pageButtonLeft.setDisable(false);
+//			pageButtonRight.setDisable(true);
+//			pageButtonLeft.setDisable(false);
 		}
 		else{
 			for(ArrayList<OptionButton> e: buttonList){
@@ -348,11 +362,10 @@ Scene scene = new Scene(borderPane, 600, 400);
 	 * @author Ishana
 	 *
 	 */
-
-		public void handle() {
-			submitButton.defaultButtonProperty().bind(submitButton.focusedProperty());
-				tabToBeClosed.addData(option);
-		}
+	public void handle() {
+		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty());
+			tabToBeClosed.addData(option);
+	}
 
 	
 	public ArrayList<String> getOption(){

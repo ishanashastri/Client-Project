@@ -61,7 +61,7 @@ public class EnterInfoTab extends Tab{
 		summaryLeftVBox.setPrefWidth(300);
 
 
-		infoOptionSelect = new OptionSelect(770, 550, this, student);
+		infoOptionSelect = new OptionSelect(700, 550, this, student);
 
 		int version = 0;
 		if (goingIn){
@@ -91,9 +91,10 @@ public class EnterInfoTab extends Tab{
 		while(file.hasNext()){
 
 			stringData = file.nextLine();
+//			infoOptionSelect.removeChoiceBox();
 			if (stringData.equals("+++")){
 				v ++;
-				
+				infoOptionSelect.removeChoiceBox();
 			}
 			else if (stringData.equals("++")&& version == v){
 				page++;
@@ -105,7 +106,7 @@ public class EnterInfoTab extends Tab{
 				else{
 					infoOptionSelect.addPage(stringData);
 				}
-			
+				infoOptionSelect.removeChoiceBox();
 			}
 			else if (stringData.equals("++++")){
 				stringData=file.nextLine();
@@ -129,10 +130,12 @@ public class EnterInfoTab extends Tab{
 						stringData=file.nextLine();
 					}
 					infoOptionSelect.splitScreen(page+1, title1, title2, data1, data2);
+					infoOptionSelect.addChoiceBox();
 				}
 			}
 			else if (version == v){
 				infoOptionSelect.addButton(page, stringData, stringData);
+				infoOptionSelect.removeChoiceBox();
 			}
 		}	
 		file.close();
@@ -253,9 +256,7 @@ public class EnterInfoTab extends Tab{
 					printWriter.print("\"" + st.getName() + "\",");
 					printWriter.print("\"" + st.getGrade() + "\",");
 					printWriter.print("\"" + st.getTime() + "\",");
-					for(int i = 0;i<st.getReason().size();i++){
-						printWriter.print("\"" + st.getReason().get(i) + "\",");
-					}
+					printWriter.print("\"" + st.getReason() + "\",");
 					printWriter.println();
 				}
 				printWriter.close();
@@ -280,18 +281,10 @@ public class EnterInfoTab extends Tab{
 					printWriter.print("\"" + st.getStudentID() + "\",");
 					printWriter.print("\"" + st.getName() + "\",");
 					printWriter.print("\"" + st.getGrade() + "\",");
-					for(int i = 0;i<st.getReason().size();i++){
-						printWriter.print("\"" + st.getReason().get(i) + "\",");
-					}
-					for(int i = 0;i<st.getExcused().size();i++){
-						printWriter.print("\"" + st.getExcused().get(i) + "\",");
-					}
-					for(int i = 0;i<st.getDepTime().size();i++){
-						printWriter.print("\"" + st.getDepTime().get(i) + "\",");
-					}
-					for(int i = 0;i<st.getArrTime().size();i++){
-						printWriter.print("\"" + st.getArrTime().get(i) + "\",");
-					}
+					printWriter.print("\"" + st.getReason() + "\",");
+					printWriter.print("\"" + st.getExcused() + "\",");
+					printWriter.print("\"" + st.getTime() + "\",");
+					printWriter.print("\"" + st.getArrTime() + "\",");
 					printWriter.println();
 				}
 				printWriter.close();

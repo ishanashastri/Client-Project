@@ -205,6 +205,7 @@ public class StartApplication extends Application {
 			int i = 0;
 			for(String fieldName: file.nextLine().split(",")){
 				field.put(fieldName.trim(), i++);
+				System.out.println(field);
 			}
 
 			//Load in student data
@@ -212,13 +213,13 @@ public class StartApplication extends Application {
 			while(file.hasNext()){
 				ArrayList<String> aStudent = new ArrayList<String>();
 				String line = file.nextLine();
+//				System.out.println("nl"+line);
 				line = line.substring(1);
 				line = line.substring(0,line.length()-1);
 				for(String studentField: line.split("\",\"")){
 					aStudent.add(studentField.trim());
 				}
 				studentData.add(aStudent);
-
 			}
 
 			//eliminate duplicates
@@ -257,7 +258,7 @@ public class StartApplication extends Application {
 					String name = student.get(field.get("NAME"));
 					int grade = Integer.parseInt(student.get(field.get("GR")));
 					Student st = new Student (name,grade,id);
-					st.setDepTime(student.get(field.get("DEPTIME")));
+					st.setTime(student.get(field.get("TIME")));
 					st.setReason(student.get(field.get("REASON")));
 					st.setArrTime(student.get(field.get("ARRTIME")));
 					st.setExcused(student.get(field.get("EXCUSED")));
