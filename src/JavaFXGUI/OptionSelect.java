@@ -257,17 +257,14 @@ public class OptionSelect extends VBox{
 		if(rem){
 			removeChoiceBox();
 		}
+		System.out.println(buttonVBox.getChildren().contains(hb));
 	}
 	public void removeChoiceBox(){
-		if(buttonVBox.getChildren().contains(optionHBoxArray)){
+//		if(buttonVBox.getChildren().contains(optionHBoxArray)){
 			buttonVBox.getChildren().remove(hb);
-		}
-		System.out.println("called");
-//		if(buttonVBox.getChildren().contains(c)){
-////			System.out.println(buttonVBox.getChildren().contains(c));
-//			c.setDisable(true);
-//			buttonVBox.getChildren().remove(c);
 //		}
+			System.out.println("remove: " +buttonVBox.getChildren().contains(hb));
+		System.out.println("called");
 	}
 	/**
 	 * This is called by the ButtonHandler to add information to the Data.

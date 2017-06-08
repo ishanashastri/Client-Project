@@ -91,10 +91,11 @@ public class EnterInfoTab extends Tab{
 		while(file.hasNext()){
 
 			stringData = file.nextLine();
-//			infoOptionSelect.removeChoiceBox();
+			System.out.println(stringData);
+			infoOptionSelect.removeChoiceBox();
 			if (stringData.equals("+++")){
 				v ++;
-//				infoOptionSelect.addChoiceBox(true, infoOptionSelect);
+				infoOptionSelect.removeChoiceBox();
 			}
 			else if (stringData.equals("++")&& version == v){
 				page++;
@@ -106,9 +107,10 @@ public class EnterInfoTab extends Tab{
 				else{
 					infoOptionSelect.addPage(stringData);
 				}
-//				infoOptionSelect.addChoiceBox(true, infoOptionSelect);
+				infoOptionSelect.removeChoiceBox();
 			}
 			else if (stringData.equals("++++")){
+				v++;
 				stringData=file.nextLine();
 				if (stringData.contains("Submit Button")){
 					String[] stringDatas = stringData.split(", ");
@@ -131,11 +133,11 @@ public class EnterInfoTab extends Tab{
 					}
 					infoOptionSelect.splitScreen(page+1, title1, title2, data1, data2, infoOptionSelect);
 				}
-//				infoOptionSelect.addChoiceBox(false, infoOptionSelect);
+				infoOptionSelect.removeChoiceBox();
 			}
 			else if (version == v){
 				infoOptionSelect.addButton(page, stringData, stringData);
-//				infoOptionSelect.addChoiceBox(true, infoOptionSelect);
+				infoOptionSelect.removeChoiceBox();
 			}
 		}	
 		file.close();

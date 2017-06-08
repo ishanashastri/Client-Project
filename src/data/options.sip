@@ -7,9 +7,8 @@ Unexcused
 Religious Reason
 Transportation
 College Visit
-+++
 ++++
-Submit Button, Enter reason for leaving and who you were excused by:
+Submit Button, Enter reason for leaving:
 Sick
 Doctor/Dentist Appointment
 Religious Reason
