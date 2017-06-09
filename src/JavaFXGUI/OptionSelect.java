@@ -210,23 +210,21 @@ public class OptionSelect extends VBox{
 		buttonVBox.getChildren().add(optionHBoxArray.get(page));
 
 	}
-	public void splitScreen(int page, String title1, String title2, ArrayList<String> data1, ArrayList<String> data2, OptionSelect o){
+	public void splitScreen(int page, ArrayList<String> data){
 		ArrayList<OptionButton> left = new ArrayList<OptionButton>();
-		for(int i =0;i<data1.size()-1;i++){
-			OptionButton opt = new OptionButton(data1.get(i), data1.get(i), page);
+		for(int i =0;i<data.size()-1;i++){
+			OptionButton opt = new OptionButton(data.get(i), data.get(i), page);
 			left.add(opt);
 		}
 		buttonList.get(page).addAll(left) ;	
 		option.add("");
-
-		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
 		
 		updateState(0);	
-		addChoiceBox(false,o);
+		addChoiceBox(false);
 		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
-		
+		System.out.println("split screen");
 	}
-	public void addChoiceBox(boolean rem, OptionSelect o){
+	public void addChoiceBox(boolean rem){
 		RadioButton h = new RadioButton("Health Room");
 		h.getStyleClass().add("RadioButton");
 		RadioButton p = new RadioButton("Parent");
@@ -246,25 +244,27 @@ public class OptionSelect extends VBox{
 			submitButton.requestFocus();
 		});
 		
-		HBox hb = new HBox(70); 
+		HBox hb = new HBox(60);
 		hb.getChildren().addAll(l,h,p); 
 		hb.setAlignment(Pos.CENTER);
 		
 		buttonVBox.getChildren().add(hb);
-		System.out.println("called1");
-		
+		System.out.println("add choices");
+//		System.out.println(buttonVBox.getChildren().contains(hb));
 		submitButton.requestFocus();
 		if(rem){
-			removeChoiceBox();
+			System.out.println(buttonVBox.getChildren().contains(hb));
+			buttonVBox.getChildren().remove(hb);
+			System.out.println("removed " + buttonVBox.getChildren().contains(hb));
 		}
-		System.out.println(buttonVBox.getChildren().contains(hb));
 	}
 	public void removeChoiceBox(){
-//		if(buttonVBox.getChildren().contains(optionHBoxArray)){
+		System.out.println("before: " + buttonVBox.getChildren().contains(hb));
+		if(buttonVBox.getChildren().contains(hb)){
 			buttonVBox.getChildren().remove(hb);
-//		}
-			System.out.println("remove: " +buttonVBox.getChildren().contains(hb));
-		System.out.println("called");
+		}
+		System.out.println("remove choices");
+		System.out.println("removed: " + buttonVBox.getChildren().contains(hb));
 	}
 	/**
 	 * This is called by the ButtonHandler to add information to the Data.

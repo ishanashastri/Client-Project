@@ -7,6 +7,7 @@ Unexcused
 Religious Reason
 Transportation
 College Visit
++++
 ++++
 Submit Button, Enter reason for leaving:
 Sick

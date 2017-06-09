@@ -89,15 +89,13 @@ public class EnterInfoTab extends Tab{
 		int page = -1; 
 		String stringData = "";
 		while(file.hasNext()){
-
 			stringData = file.nextLine();
-			System.out.println(stringData);
-			infoOptionSelect.removeChoiceBox();
+			System.out.println(stringData+ ", " + v + ", " + version);
+			
 			if (stringData.equals("+++")){
-				v ++;
-				infoOptionSelect.removeChoiceBox();
+				v++;
 			}
-			else if (stringData.equals("++")&& version == v){
+			else if (stringData.equals("++") && version == v){
 				page++;
 				stringData = file.nextLine();
 				if (stringData.contains("Submit Button")){
@@ -107,37 +105,32 @@ public class EnterInfoTab extends Tab{
 				else{
 					infoOptionSelect.addPage(stringData);
 				}
-				infoOptionSelect.removeChoiceBox();
 			}
 			else if (stringData.equals("++++")){
-				v++;
 				stringData=file.nextLine();
 				if (stringData.contains("Submit Button")){
 					String[] stringDatas = stringData.split(", ");
 					infoOptionSelect.addSubmitButton(page);
 					infoOptionSelect.addPage(stringDatas[1]);
 					
-					String title1 = stringDatas[1];
-					ArrayList<String> data1 = new ArrayList<String>();
+					ArrayList<String> data = new ArrayList<String>();
 					stringData = file.nextLine();
 					while(!stringData.equals("Title 2")){
-						data1.add(stringData);
+						data.add(stringData);
 						stringData = file.nextLine();
 					}
-					String title2 = file.nextLine();
 					stringData = file.nextLine();
 					ArrayList<String> data2 = new ArrayList<String>();
 					while(!stringData.equals("End")){
 						data2.add(stringData);
 						stringData=file.nextLine();
-					}
-					infoOptionSelect.splitScreen(page+1, title1, title2, data1, data2, infoOptionSelect);
-				}
-				infoOptionSelect.removeChoiceBox();
+					}																																																																																			
+					infoOptionSelect.splitScreen(page+1, data);
+				}//infoOptionSelect.removeChoiceBox();
+				
 			}
 			else if (version == v){
 				infoOptionSelect.addButton(page, stringData, stringData);
-				infoOptionSelect.removeChoiceBox();
 			}
 		}	
 		file.close();
