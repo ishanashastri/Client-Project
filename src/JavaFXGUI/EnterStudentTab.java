@@ -33,7 +33,7 @@ import java.util.Collections;
 
 /**
  * A Tab where the Student that is signing In/Out is selected.
- * @author Kevin
+ * @author Kevin and Ishana
  *
  */
 @SuppressWarnings("restriction")

@@ -23,7 +23,10 @@ public class ChoiceHandler implements EventHandler<ActionEvent>{
 		this.val = opt ;
 		parent = p;
 	}
-
+	/**
+	 *Calls addInfo() of optionSelect to add the information encoded in each button.
+	 *
+	 */
 	public void handle(ActionEvent event) {
 		parent.addInfo(val);
 	}

@@ -3,7 +3,7 @@ import javafx.beans.property.*;
 
 /**
  * Wrapper Class of student for implementation in a TableView.
- * @author Kevin
+ * @author Kevin and Ishana
  */
 @SuppressWarnings("restriction")
 public class StudentProperty {

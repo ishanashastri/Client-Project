@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="javadoc">
+    <target name="javadoc">
+        <javadoc access="public" author="true" classpath="C:\Users\Index2\Downloads\javax.mail.jar" destdir="doc" doctitle="Front Office Attendance Software API" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" source="1.8" sourcefiles="src/backend/StudentProperty.java" sourcepath="src" splitindex="true" use="true" version="true"/>
+    </target>
+</project>

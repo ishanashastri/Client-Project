@@ -29,7 +29,7 @@ import javafx.scene.image.*;
 @SuppressWarnings("restriction")
 /**
  * The Main class of the program. This class is run to initialize everything. 
- * @author Kevin
+ * @author Kevin and Ishana
  */
 public class StartApplication extends Application {
 	private StackPane content;
@@ -46,8 +46,8 @@ public class StartApplication extends Application {
 	}
 	/**
 	 * Initializes all of the values. The School database is read from an internal
-	 * file "src/data/SchoolDatabase.mer." The other two StudentLists are emtpy if the
-	 * backup file does not exist, other they are populated with the backup file's data.
+	 * file "src/data/quartech.mer." The other two StudentLists are empty if the
+	 * backup file does not exist, otherwise they are populated with the backup file's data.
 	 * The data itself is stored in a HashMap of Strings and StudentLists.
 	 */
 	@Override
@@ -187,7 +187,7 @@ public class StartApplication extends Application {
 	 * No spaces are in between elements of the .csv. If there is an error, a pop-up window that displays an error
 	 * is displayed.
 	 * @param fileName The file path of the mer.
-	 * @param opt which type of data it is (database, sign in, or signout)
+	 * @param opt which type of data it is (database, sign in, or sign out)
 	 * @return Returns a StudentList of students in the data file.
 	 */
 	@SuppressWarnings("resource")
@@ -212,8 +212,6 @@ public class StartApplication extends Application {
 			while(file.hasNext()){
 				ArrayList<String> aStudent = new ArrayList<String>();
 				String line = file.nextLine();
-//				System.out.println(line);
-//				System.out.println("nl"+line);
 				line = line.substring(1);
 				line = line.substring(0,line.length()-1);
 				for(String studentField: line.split("\",\"")){
@@ -280,6 +278,4 @@ public class StartApplication extends Application {
 			return new StudentList();
 		}
 	}
-
-
 }

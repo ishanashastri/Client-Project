@@ -19,7 +19,10 @@ public class AnimatedLabel extends Label{
 	FadeTransition ftOut;
 	SequentialTransition seqBlink;
 	
-
+	/**
+	 * Constructor
+	 * @param text string to be displayed on label
+	 */
 	public AnimatedLabel(String text){
 		super(text);
 		ftIn = new FadeTransition(Duration.millis(500), this);

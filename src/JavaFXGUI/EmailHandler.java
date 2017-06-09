@@ -12,12 +12,21 @@ import javax.activation.*;
 import com.sun.mail.smtp.SMTPAddressFailedException;
 import com.sun.mail.util.MailConnectException;
 
+/**
+ * Class to handle sending the email.
+ *
+ */
 public class EmailHandler {
 	private String username;
 	private String password;
 	private String error = "none";
 	ArrayList<String> destination = new ArrayList<String>();
-
+	/**
+	 * Constructor
+	 * @param u username
+	 * @param p password
+	 * @param d email list
+	 */
 	public EmailHandler( String u, String p, ArrayList<String> d){
 		username = u;
 		password = p;
@@ -28,7 +37,10 @@ public class EmailHandler {
 	public ArrayList<String> getEmailList(){
 		return destination;
 	}
-	
+	/**
+	 * Reads emails from email.config file
+	 * @return ArrayList<String> of email addresses to be send to.
+	 */
 	public static ArrayList<String> readEmailList(){
 		Scanner configScanner = null;
 		File configFile = new File("src//data//email.config");
@@ -47,7 +59,10 @@ public class EmailHandler {
 		}
 		return d;
 	}
-	
+	/**
+	 * Writes additional emails to the email.config file.
+	 * @param d Email List
+	 */
 	public static void writeEmailList(ArrayList<String> d){
 
 		File configFile = new File("src//data//email.config");
@@ -65,6 +80,11 @@ public class EmailHandler {
 		}
 
 	}
+	/**
+	 * Checks if email typed is a valid email address. 
+	 * @param email email address
+	 * @return true if the email typed is valid, false if not
+	 */
 	public static boolean isValidEmailAddress(String email) {
 		   boolean result = true;
 		   try {
@@ -75,7 +95,9 @@ public class EmailHandler {
 		   }
 		   return result;
 		}
-
+	/**
+	 * Sends email
+	 */
 	public void send(){
 		LocalDate todayDate = LocalDate.now();
 		String date = todayDate.toString();

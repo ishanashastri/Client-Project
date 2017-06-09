@@ -7,7 +7,7 @@ import java.util.Locale;
 
 /** 
  * Data class that holds information on each student. Holds name, studentID and grade.
- * @author	Kevin
+ * @author Kevin
  */
 public class Student implements Comparable<Student>{
 	

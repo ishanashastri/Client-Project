@@ -15,7 +15,7 @@ import javafx.scene.control.*;
 import javafx.geometry.*;
 /**
  * The tab where the student enters specific information about why he/she is late.
- * @author Kevin
+ * @author Kevin and Ishana
  *
  */
 @SuppressWarnings("restriction")
@@ -126,7 +126,7 @@ public class EnterInfoTab extends Tab{
 						stringData=file.nextLine();
 					}																																																																																			
 					infoOptionSelect.splitScreen(page+1, data);
-				}//infoOptionSelect.removeChoiceBox();
+				}//infoOptionSelect.removeRadButton();
 				
 			}
 			else if (version == v){
@@ -157,11 +157,6 @@ public class EnterInfoTab extends Tab{
 		contentVBox.getChildren().addAll(alert, centerVBox);
 		content.setCenter(contentVBox);
 		content.setBottom(navHBox);
-
-
-		// "T:/Pictures" for pictures
-		// TODO Implement scanner, pictures, styling for summary page. Also implement selection, 
-		// then submit click thing, summary page for student name above Option select
 
 		setContent(content);
 	}

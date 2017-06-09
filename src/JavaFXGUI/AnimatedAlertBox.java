@@ -11,7 +11,7 @@ import javafx.scene.layout.*;
 /**
  * An Animated Alert box, either green or red, that fades in and out. Intended to be 
  * attached to the top of a BorderPane.
- * @author Kevin
+ * @author Kevin and Ishana
  */
 @SuppressWarnings("restriction")
 public class AnimatedAlertBox extends HBox{
@@ -58,7 +58,9 @@ public class AnimatedAlertBox extends HBox{
 		
 		seqT = new SequentialTransition (ftIn, pt, ftOut);
 	}
-	
+	 /**
+	  * Applies CSS styles to the page.
+	  */
 	public void setStyle(){
 		if (warning){
 			getStyleClass().remove(getStyleClass().size()-1);

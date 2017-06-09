@@ -1,6 +1,3 @@
-
-
-//TODO Start writing Javadoc
 package backend;
 
 import java.util.ArrayList;

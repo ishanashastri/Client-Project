@@ -31,7 +31,7 @@ import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 /**
  * Creates a carousel of options that the student uses to select his/her reasons for signing in/out.
- * @author Kevin
+ * @author Kevin and Ishana
  */
 @SuppressWarnings("restriction")
 public class OptionSelect extends VBox{
@@ -46,13 +46,10 @@ public class OptionSelect extends VBox{
 	private Label pageNumberLabel;
 	private Button submitButton;
 	private EnterInfoTab tabToBeClosed;
-	private Student student;
-//	private Button pageButtonLeft;
-//	private Button pageButtonRight; 
+	private Student student; 
 	private FadeTransition ftIn;
 	private FadeTransition ftOut;
 	private ArrayList<OptionHBox> optionHBoxArray = new ArrayList<OptionHBox>();
-	private ChoiceBox c;
 	private HBox hb;
 	private ToggleGroup tg;
 	/**
@@ -128,7 +125,6 @@ public class OptionSelect extends VBox{
 		buttonList.get(page).add(new OptionButton(name, mes, page));
 		updateState(0);
 	}
-
 
 	/**
 	 * Adds a page in the carousel.
@@ -210,6 +206,12 @@ public class OptionSelect extends VBox{
 		buttonVBox.getChildren().add(optionHBoxArray.get(page));
 
 	}
+	/**
+	 * Creates new page with two questions: the first question's options are OptionButtons, while
+	 * the second question's buttons are RadioButtons
+	 * @param page page to be implemented on
+	 * @param data list of options
+	 */
 	public void splitScreen(int page, ArrayList<String> data){
 		ArrayList<OptionButton> left = new ArrayList<OptionButton>();
 		for(int i =0;i<data.size()-1;i++){
@@ -220,11 +222,15 @@ public class OptionSelect extends VBox{
 		option.add("");
 		
 		updateState(0);	
-		addChoiceBox(false);
+		addRadButton(false);
 		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
 		System.out.println("split screen");
 	}
-	public void addChoiceBox(boolean rem){
+	/**
+	 * Adds RadioButtons with the question and the options.
+	 * @param rem deletes RadioButton if rem is true.
+	 */
+	public void addRadButton(boolean rem){
 		RadioButton h = new RadioButton("Health Room");
 		h.getStyleClass().add("RadioButton");
 		RadioButton p = new RadioButton("Parent");
@@ -258,7 +264,10 @@ public class OptionSelect extends VBox{
 			System.out.println("removed " + buttonVBox.getChildren().contains(hb));
 		}
 	}
-	public void removeChoiceBox(){
+	/**
+	 * Removes all RadioButtons from page
+	 */
+	public void removeRadButton(){
 		System.out.println("before: " + buttonVBox.getChildren().contains(hb));
 		if(buttonVBox.getChildren().contains(hb)){
 			buttonVBox.getChildren().remove(hb);
@@ -273,12 +282,20 @@ public class OptionSelect extends VBox{
 	public void addInfo(String mes){
 		option.set(page, mes);
 	}
+	
+	/**
+	 * Adds a submit button to the bottom of the specified page if a submit button does not already exist. 
+	 * @param page
+	 */
 	public void addSubmitButton(int page){
 		if(!bottomHBox.getChildren().contains(submitButton)){
 			 bottomHBox.getChildren().add(submitButton);
 		}
 	}
-	
+	/**
+	 * Called when the arrow buttons are clicked.
+	 * @param next true if pageButtonRight is clicked
+	 */
 	private void setPage(boolean next){
 		
 		if (next == true && (page + 1 < buttonList.size()-1)){
@@ -336,7 +353,8 @@ public class OptionSelect extends VBox{
 	}
 	
 	/**
-	 * The method that handles submitting the Data.
+	 * The method that handles submitting the data. It places focus on the submit button so it listens to key presses 
+	 * automatically.
 	 * @author Ishana
 	 *
 	 */
@@ -353,7 +371,6 @@ public class OptionSelect extends VBox{
 		}
 		return returnArr;
 	}
-	
 	public ArrayList<String> getPageTitles(){
 		ArrayList<String> titleArray = new ArrayList<String>();
 

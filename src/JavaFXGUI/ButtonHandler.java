@@ -34,7 +34,7 @@ public class ButtonHandler implements EventHandler<ActionEvent> {
 	}
 
 	/**
-	 * 
+	 * Constructor
 	 * @param opt The value of the button.
 	 * @param b A Playable node.
 	 * @param p The Parent OptionSelect class

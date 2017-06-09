@@ -42,7 +42,7 @@ import javafx.scene.web.*;
  * A Panel that contains all the information on settings. 
  * Inside are a print button, a loading file button, a save button,
  * a changePassword button, and a TabPane with Two tables that displays the data so far.
- * @author Kevin
+ * @author Kevin and Ishana
  */
 @SuppressWarnings("restriction")
 public class SettingHBox extends HBox{
@@ -675,7 +675,9 @@ public class SettingHBox extends HBox{
 		tableSignOut.setItems(goingOutIn);
 		return tableSignOut;
 	}
-
+	/**
+	 * Sends records to provided emails.
+	 */
 	public void sendEmail(){
 		Dialog<Pair<String, String>> dialog = new Dialog<>();
 		dialog.setTitle("Send Report");
