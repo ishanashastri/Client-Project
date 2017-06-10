@@ -20,6 +20,7 @@ public class Student implements Comparable<Student>{
 	private String time;
 	private String excused = "";
 	private String arrTime = "None";
+	private int i;
 	
 
 	/**
@@ -40,7 +41,7 @@ public class Student implements Comparable<Student>{
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
 		LocalTime todayTime = LocalTime.now();
 		time = formatter.format(todayTime);
-		
+		i=0;
 	}
 	
 
@@ -90,15 +91,13 @@ public class Student implements Comparable<Student>{
 
 
 	public void setReason(String reason) {
-//		if(this.reason != null){
-//			this.reason += ", " +reason;			
-//		}else{
-//			System.out.println("NULLEDEDED");
+		if(this.reason != null){
+			this.reason += ", " +reason;			
+		}else{
 			this.reason=reason;	
-//		}
+		}
 	}
  
-
 
 	public String getNote() {
 		return note;
@@ -120,9 +119,16 @@ public class Student implements Comparable<Student>{
 //		}else{
 //			System.out.println("time: " + this.time);
 			this.time=t;
+			System.out.println("time: " + this.time + " --> " + t);
 //		}
+			addCount();
 	}
-	
+	public void addCount(){
+		i+=1;
+	}
+	public int getCount(){
+		return i;
+	}
 	public String getDate(){
 		return date;
 	}
@@ -141,6 +147,11 @@ public class Student implements Comparable<Student>{
 //		}else{
 //			this.arrTime += ", " + arrTime;	
 //		} 
+			System.out.println("time: " + this.arrTime + " --> " + arrTime);
+			if(arrTime!=this.arrTime){
+				addCount();
+			}
+			System.out.println(name + " - count: " + i);
 	}
 	public String getArrTime() {
 		return arrTime;

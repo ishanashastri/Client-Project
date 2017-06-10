@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -214,7 +215,7 @@ public class EnterStudentTab extends Tab {
 				if ( ! entryText.toUpperCase().contains(part) ) {
 					match = false;
 					break;
-				}
+				} 
 			}
 
 			if ( match ) {
@@ -238,7 +239,7 @@ public class EnterStudentTab extends Tab {
 					submittedText = subentries.get(0);
 					ArrayList<String> toStringList = data.get("database").getInfoList();
 					if (toStringList.contains(submittedText)){
-						moveOn(goingIn, data.get("database").getStudentByToString(submittedText));
+							moveOn(goingIn, data.get("database").getStudentByToString(submittedText));
 					}
 				}
 				else{
@@ -250,8 +251,12 @@ public class EnterStudentTab extends Tab {
 					alert.play("Please submit your name.");
 				}
 				else{
-
-					alert.play("The student \"" + searchTextField.getText() + "\" was not found.");
+					submittedText = searchTextField.getText();
+					if(data.get("database").getIDList().contains(submittedText)){
+						moveOn(goingIn, data.get("database").getStudentByID(submittedText));
+					}else{
+						alert.play("The student \"" + searchTextField.getText() + "\" was not found.");
+					}
 				}
 			}
 
@@ -280,9 +285,8 @@ public class EnterStudentTab extends Tab {
 		int j = 0;
 		for (int i =0; i < data.get("outin").getStudentList().size(); i++){
 			if (student.equals(data.get("outin").getStudentList().get(i))){
-//				System.out.println(student.getArrTime());
-//				System.out.println(student.getArrTime().equals("None"));
-				if(student.getArrTime().equals("None")){
+				System.out.println(data.get("outin").getStudentList().get(i).getCount());
+				if(data.get("outin").getStudentList().get(i).getCount()%2!=0){
 					j = i;
 					outin=true;
 				}
@@ -290,45 +294,41 @@ public class EnterStudentTab extends Tab {
 		}
 		
 		if (outin){
-//			if(student.getArrTime().equals("None")){
-				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
-				LocalTime todayTime = LocalTime.now();
-				String time = formatter.format(todayTime);
-				if(data.get("outin").getStudentList().get(j).getArrTime().length()>data.get("outin").getStudentList().get(j).getTime().length()){
-					data.get("outin").getStudentList().get(j).setTime(time);
-				}else{
-					data.get("outin").getStudentList().get(j).setArrTime(time);
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a", Locale.US);
+			LocalTime todayTime = LocalTime.now();
+			String time = formatter.format(todayTime);
+			
+			data.get("outin").getStudentList().get(j).setArrTime(time);
+			
+			LocalDate todayDate = LocalDate.now();
+			String date = todayDate.toString();
+			File f = new File("src/backup/" + date+"-OUT.csv");
+			try {
+				f.createNewFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				PrintWriter printWriter = new PrintWriter (f);
+				printWriter.println("DATE,ID,NAME,GR,REASON,EXCUSED,TIME,ARRTIME");
+				for(Student st : data.get("outin").getStudentList()){
+					printWriter.print("\"" + st.getDate() + "\","); 
+					printWriter.print("\"" + st.getStudentID() + "\",");
+					printWriter.print("\"" + st.getName() + "\",");
+					printWriter.print("\"" + st.getGrade() + "\",");
+					printWriter.print("\"" + st.getReason() + "\",");
+					printWriter.print("\"" + st.getExcused() + "\",");
+					printWriter.print("\"" + st.getTime() + "\",");
+					printWriter.print("\"" + st.getArrTime() +"\",");
+					printWriter.println();
 				}
-				LocalDate todayDate = LocalDate.now();
-				String date = todayDate.toString();
-				File f = new File("src/backup/" + date+"-OUT.csv");
-				try {
-					f.createNewFile();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-	
-				try {
-					PrintWriter printWriter = new PrintWriter (f);
-					printWriter.println("DATE,ID,NAME,GR,REASON,EXCUSED,TIME,ARRTIME");
-					for(Student st : data.get("outin").getStudentList()){
-						printWriter.print("\"" + st.getDate() + "\","); 
-						printWriter.print("\"" + st.getStudentID() + "\",");
-						printWriter.print("\"" + st.getName() + "\",");
-						printWriter.print("\"" + st.getGrade() + "\",");
-						printWriter.print("\"" + st.getReason() + "\",");
-						printWriter.print("\"" + st.getExcused() + "\",");
-						printWriter.print("\"" + st.getTime() + "\",");
-						printWriter.print("\"" + st.getArrTime() +"\",");
-						printWriter.println();
-					}
-					printWriter.close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				goBack(true);
+				printWriter.close();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			goBack(true);
 		}
 		else{
 			if (signIn){

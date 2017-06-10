@@ -221,10 +221,13 @@ public class StartTab extends Tab {
 		alert.play();
 	}
 	/**
-	 * Searches for student in the database and updates list based on the string typed. 
-	 * @param entries list of students
-	 * @param oldVal old value
-	 * @param newVal new value
+	 * Searches for a student within an ObservableList. Every time a key is pressed
+	 * in a textField, this method is called. Updates the ListView list accordingly. 
+	 * The search functions uses every space-separated word as a keyword, and an 
+	 * element that is deemed part of the search must have EVERY keyword.
+	 * @param entries The ObservableList of Entries
+	 * @param oldVal The previous value of the search
+	 * @param newVal The new value of the Search.
 	 */
 	public void searchStudent(ObservableList<String> entries, String oldVal, String newVal) {
 

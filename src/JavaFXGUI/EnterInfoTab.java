@@ -68,13 +68,17 @@ public class EnterInfoTab extends Tab{
 			version = 0;
 			for (int i = 0; i < data.get("outin").getStudentList().size(); i++){
 				if (student.equals(data.get("outin").getStudentList().get(i))){
-					version = 2;
+					if(student.getCount()%2!=0){
+						version = 1;
+					}else{
+						version = 0;
+					}
 				}
 				
 			}
 		}
 		else{
-			version = 1;
+			version = 2;
 		}
 		Scanner file = null;
 		try {
@@ -90,7 +94,7 @@ public class EnterInfoTab extends Tab{
 		String stringData = "";
 		while(file.hasNext()){
 			stringData = file.nextLine();
-			System.out.println(stringData+ ", " + v + ", " + version);
+//			System.out.println(stringData+ ", " + v + ", " + version);
 			
 			if (stringData.equals("+++")){
 				v++;
@@ -189,8 +193,6 @@ public class EnterInfoTab extends Tab{
 			if (!goingIn){
 				student.setReason(option.get(0));
 				student.setExcused(option.get(1));
-				System.out.println(option.get(0));
-				System.out.println(option.get(1));
 				data.get("outin").add(student);
 			}
 			else{
