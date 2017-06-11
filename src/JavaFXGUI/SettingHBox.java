@@ -589,9 +589,9 @@ public class SettingHBox extends HBox{
 					};
 				});
 //				columnList.get(i).setSortable(true);
-//				TimeComparator c = new TimeComparator();
+				Comparator<Student> c = new TimeComparator();
 //				columnList.sort(c);
-//				tableSignIn.sort();
+				tableSignIn.sort();
 			}
 			tableSignIn.getColumns().add(columnList.get(i));
 //					tableSignIn.getColumns().size(), columnList.get(i));

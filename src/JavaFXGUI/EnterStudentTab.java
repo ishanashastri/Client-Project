@@ -285,11 +285,8 @@ public class EnterStudentTab extends Tab {
 		int j = 0;
 		for (int i =0; i < data.get("outin").getStudentList().size(); i++){
 			if (student.equals(data.get("outin").getStudentList().get(i))){
-				System.out.println(data.get("outin").getStudentList().get(i).getCount());
-				if(data.get("outin").getStudentList().get(i).getCount()%2!=0){
 					j = i;
 					outin=true;
-				}
 			}
 		}
 		
