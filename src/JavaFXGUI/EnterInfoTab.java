@@ -27,9 +27,7 @@ public class EnterInfoTab extends Tab{
 	private Student student;
 	private HashMap<String, StudentList> data;
 	private AnimatedAlertBox alert;
-	private VBox summaryLeftVBox;
 	private OptionSelect infoOptionSelect;
-	private ArrayList<AnimatedLabel> summariesOptions;
 	/**
 	 * Initializes the Tab. The Tab reads from a file "src/data/options.sip" for a list 
 	 * of the options of the OptionSelect carousel. 
@@ -54,13 +52,6 @@ public class EnterInfoTab extends Tab{
 
 		alert = new AnimatedAlertBox("Please select all options.", true);
 
-		summaryLeftVBox = new VBox();
-		summaryLeftVBox.getStyleClass().add("summaryVBox");
-		summaryLeftVBox.setSpacing(20);
-		summaryLeftVBox.setMaxWidth(300);
-		summaryLeftVBox.setPrefWidth(300);
-
-
 		infoOptionSelect = new OptionSelect(700, 550, this, student);
 
 		int version = 0;
@@ -68,13 +59,8 @@ public class EnterInfoTab extends Tab{
 			version = 0;
 			for (int i = 0; i < data.get("outin").getStudentList().size(); i++){
 				if (student.equals(data.get("outin").getStudentList().get(i))){
-					if(student.getCount()%2!=0){
-						version = 1;
-					}else{
-						version = 0;
-					}
-				}
-				
+					version = 1;
+				}	
 			}
 		}
 		else{
