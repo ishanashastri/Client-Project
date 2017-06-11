@@ -140,7 +140,6 @@ public class OptionSelect extends VBox{
 		updateState(0);
 	}
 	
-	
 	/**
 	 * Updates the state of the carousel. This is called every time the arrow buttons are clicked,
 	 * or when a button/page is added. This method scales every child of the OptionSelect
@@ -197,8 +196,6 @@ public class OptionSelect extends VBox{
 			buttonList.get(page).get(0).setOnAction(new ButtonHandler(buttonList.get(page).get(0).getValue(), buttonList.get(page).get(0),this));
 			buttonVBox.getChildren().add(buttonList.get(page).get(0));
 		}
-		
-
 
 		optionHBoxArray.get(page).setPrefHeight(buttonHeight);
 		optionHBoxArray.get(page).setPrefWidth(buttonWidth);
@@ -207,10 +204,10 @@ public class OptionSelect extends VBox{
 
 	}
 	/**
-	 * Creates new page with two questions: the first question's options are OptionButtons, while
-	 * the second question's buttons are RadioButtons
+	 * Creates new page with two different questions: the first question's options are OptionButtons, while
+	 * the second question's buttons are RadioButtons.
 	 * @param page page to be implemented on
-	 * @param data list of options
+	 * @param data list of options for the first question
 	 */
 	public void splitScreen(int page, ArrayList<String> data){
 		ArrayList<OptionButton> left = new ArrayList<OptionButton>();
@@ -224,10 +221,9 @@ public class OptionSelect extends VBox{
 		updateState(0);	
 		addRadButton();
 		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
-		System.out.println("split screen");
 	}
 	/**
-	 * Called by splitScreen() to adds RadioButtons with the specified question and the options.
+	 * Called by splitScreen() to add RadioButtons with the specified question and the options.
 	 */
 	public void addRadButton(){
 		RadioButton h = new RadioButton("Health Room");
@@ -268,62 +264,8 @@ public class OptionSelect extends VBox{
 	public void addSubmitButton(int page){
 		if(!bottomHBox.getChildren().contains(submitButton)){
 			 bottomHBox.getChildren().add(submitButton);
-		}
-	}
-	/**
-	 * Called when the arrow buttons are clicked.
-	 * @param next true if pageButtonRight is clicked
-	 */
-	private void setPage(boolean next){
-		
-		if (next == true && (page + 1 < buttonList.size()-1)){
-			transitionPage(page+1);
-		}
-		else if ((next != true) && (page - 1 >= 0)){
-			transitionPage(page-1);
-		}
-		else if ((next == true) && (page + 1 == buttonList.size()-1)){
-			transitionPage(page+1);
-		}
-	}
-
-	/**
-	 * This is called when the arrow buttons are clicked. If the current page is equal to the amount of pages.
-	 * the User is brought to a custom Page with a submit button.
-	 * @param pg
-	 */
-	private void transitionPage(int pg){
-		if (pg == buttonList.size()-1){
-			ftOut.play();
-			page = page + 1;
-			ftIn.play();
-//			pageButtonRight.setDisable(true);
-//			pageButtonLeft.setDisable(false);
-		}
-		else{
-			ftOut.play();
-			updateState(pg);
-			ftIn.play();
-		}
-
-	}
-	
-	/**
-	 * The class that handles going to the next page.
-	 * @author Kevin
-	 *
-	 */
-	private class NextHandler implements EventHandler<ActionEvent> {
-		private boolean next ;
-		public NextHandler(boolean n) {
-			this.next = n;
-		}
-		@Override
-		public void handle(ActionEvent event) {
-			setPage(next);
-		}
-
-	}
+		}submitButton.requestFocus();
+	}	
 	
 	/**
 	 * The method that handles submitting the data. It places focus on the submit button so it listens to key presses 
