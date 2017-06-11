@@ -93,48 +93,55 @@ public class EnterInfoTab extends Tab{
 		int page = -1; 
 		String stringData = "";
 		while(file.hasNext()){
-			stringData = file.nextLine();
-//			System.out.println(stringData+ ", " + v + ", " + version);
-			
-			if (stringData.equals("+++")){
-				v++;
-			}
-			else if (stringData.equals("++") && version == v){
-				page++;
+			if(goingIn){
 				stringData = file.nextLine();
-				if (stringData.contains("Submit Button")){
-					String[] stringDatas = stringData.split(", ");
-					infoOptionSelect.addPage(stringDatas[1]);
-				}	
-				else{
-					infoOptionSelect.addPage(stringData);
-				}
-			}
-			else if (stringData.equals("++++")){
-				stringData=file.nextLine();
-				if (stringData.contains("Submit Button")){
-					String[] stringDatas = stringData.split(", ");
-					infoOptionSelect.addSubmitButton(page);
-					infoOptionSelect.addPage(stringDatas[1]);
-					
-					ArrayList<String> data = new ArrayList<String>();
-					stringData = file.nextLine();
-					while(!stringData.equals("Title 2")){
-						data.add(stringData);
-						stringData = file.nextLine();
-					}
-					stringData = file.nextLine();
-					ArrayList<String> data2 = new ArrayList<String>();
-					while(!stringData.equals("End")){
-						data2.add(stringData);
-						stringData=file.nextLine();
-					}																																																																																			
-					infoOptionSelect.splitScreen(page+1, data);
-				}//infoOptionSelect.removeRadButton();
+				System.out.println(stringData+ ", " + v + ", " + version);
 				
-			}
-			else if (version == v){
-				infoOptionSelect.addButton(page, stringData, stringData);
+				if (stringData.equals("+++")){
+					v++;
+				}
+				else if (stringData.equals("++") && version == v){
+					page++;
+					stringData = file.nextLine();
+					if (stringData.contains("Submit Button")){
+						String[] stringDatas = stringData.split(", ");
+						infoOptionSelect.addPage(stringDatas[1]);
+						infoOptionSelect.addSubmitButton(page);
+					}	
+					else{
+						infoOptionSelect.addPage(stringData);
+					}
+				}
+				else if (version == v){
+					infoOptionSelect.addButton(page, stringData, stringData);
+				}
+				else if(stringData.equals("++++")){
+					break;
+				}
+			}else{
+				stringData=file.nextLine();
+				if (stringData.equals("++++")){
+					stringData=file.nextLine();
+					if (stringData.contains("Submit Button")){
+						String[] stringDatas = stringData.split(", ");
+						infoOptionSelect.addSubmitButton(page);
+						infoOptionSelect.addPage(stringDatas[1]);
+						
+						ArrayList<String> data = new ArrayList<String>();
+						stringData = file.nextLine();
+						while(!stringData.equals("Title 2")){
+							data.add(stringData);
+							stringData = file.nextLine();
+						}
+						stringData = file.nextLine();
+						ArrayList<String> data2 = new ArrayList<String>();
+						while(!stringData.equals("End")){
+							data2.add(stringData);
+							stringData=file.nextLine();
+						}																																																																																			
+						infoOptionSelect.splitScreen(page+1, data);
+					}	
+				}
 			}
 		}	
 		file.close();
@@ -185,9 +192,12 @@ public class EnterInfoTab extends Tab{
 	 * @param option An ArrayList of Strings obtained from the OptionSelect that contains the data from that OptionSelect
 	 */
 	public void addData(ArrayList<String> option){
-
-		if (option.get(0).isEmpty() || option.get(1).isEmpty()){
-			alert.play();
+		if(goingIn){
+			if (option.get(0).isEmpty()){
+				alert.play();
+			}
+		}else if(option.get(0).isEmpty()|| option.get(1).isEmpty()){
+				alert.play();
 		}
 		else{
 			if (!goingIn){

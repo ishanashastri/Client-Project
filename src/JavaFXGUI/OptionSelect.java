@@ -222,15 +222,14 @@ public class OptionSelect extends VBox{
 		option.add("");
 		
 		updateState(0);	
-		addRadButton(false);
+		addRadButton();
 		buttonVBox.getChildren().remove(optionHBoxArray.get(page));
 		System.out.println("split screen");
 	}
 	/**
-	 * Adds RadioButtons with the question and the options.
-	 * @param rem deletes RadioButton if rem is true.
+	 * Called by splitScreen() to adds RadioButtons with the specified question and the options.
 	 */
-	public void addRadButton(boolean rem){
+	public void addRadButton(){
 		RadioButton h = new RadioButton("Health Room");
 		h.getStyleClass().add("RadioButton");
 		RadioButton p = new RadioButton("Parent");
@@ -242,9 +241,6 @@ public class OptionSelect extends VBox{
 		tg = new ToggleGroup();
 		h.setToggleGroup(tg); p.setToggleGroup(tg);
 		tg.selectedToggleProperty().addListener((ObservableValue<? extends Toggle> ov, Toggle toggle, Toggle new_toggle) -> {
-			for(String opt: option){
-				System.out.println(opt);
-			}
 			String[] pts = tg.getSelectedToggle().toString().split("'");
 			option.add(1,pts[1]);
 			submitButton.requestFocus();
@@ -253,27 +249,9 @@ public class OptionSelect extends VBox{
 		HBox hb = new HBox(60);
 		hb.getChildren().addAll(l,h,p); 
 		hb.setAlignment(Pos.CENTER);
-		
+			
 		buttonVBox.getChildren().add(hb);
-		System.out.println("add choices");
-//		System.out.println(buttonVBox.getChildren().contains(hb));
 		submitButton.requestFocus();
-		if(rem){
-			System.out.println(buttonVBox.getChildren().contains(hb));
-			buttonVBox.getChildren().remove(hb);
-			System.out.println("removed " + buttonVBox.getChildren().contains(hb));
-		}
-	}
-	/**
-	 * Removes all RadioButtons from page
-	 */
-	public void removeRadButton(){
-		System.out.println("before: " + buttonVBox.getChildren().contains(hb));
-		if(buttonVBox.getChildren().contains(hb)){
-			buttonVBox.getChildren().remove(hb);
-		}
-		System.out.println("remove choices");
-		System.out.println("removed: " + buttonVBox.getChildren().contains(hb));
 	}
 	/**
 	 * This is called by the ButtonHandler to add information to the Data.
@@ -323,11 +301,6 @@ public class OptionSelect extends VBox{
 //			pageButtonLeft.setDisable(false);
 		}
 		else{
-			for(ArrayList<OptionButton> e: buttonList){
-				for(OptionButton d: e){
-					System.out.println(d);
-				}
-			}
 			ftOut.play();
 			updateState(pg);
 			ftIn.play();
