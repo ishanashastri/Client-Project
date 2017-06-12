@@ -244,7 +244,9 @@ public class StartApplication extends Application {
 					String name = student.get(field.get("NAME"));
 					int grade = Integer.parseInt(student.get(field.get("GR")));
 					Student st = new Student (name,grade,id);
+					System.out.println(student.get(field.get("TIME")));
 					st.setTime(student.get(field.get("TIME")));
+					System.out.println(student.get(field.get("TIME")));
 					st.setReason(student.get(field.get("REASON")));
 					st.setDate(student.get(field.get("DATE")));
 					list.add(st);

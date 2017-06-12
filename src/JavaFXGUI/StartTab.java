@@ -171,7 +171,7 @@ public class StartTab extends Tab {
 					if (click.getClickCount() == 2) {
 						String currentItemSelected = (String) list.getSelectionModel().getSelectedItem();
 						list.getSelectionModel().select(-1);
-						submit(currentItemSelected);
+						submit(currentItemSelected, false);
 					}
 				}
 			});
@@ -187,26 +187,27 @@ public class StartTab extends Tab {
 			contentHBox.setPadding(new Insets(15, 12, 15, 12));
 			contentHBox.setSpacing(10);
 
-
 			Button buttonSignIn = new Button("Student Sign In");
-			buttonSignIn.setPrefSize(200, 40);
+			buttonSignIn.setPrefSize(300, 50);
 			buttonSignIn.setOnAction(e -> moveOn(true));
-
+			buttonSignIn.getStyleClass().add("signButton");
 
 			Button buttonSignOut = new Button("Student Sign Out");
-			buttonSignOut.setPrefSize(200, 40);
+			buttonSignOut.setPrefSize(300, 50);
 			buttonSignOut.setOnAction(e -> moveOn(false));
+			buttonSignOut.getStyleClass().add("signButton");
 
 			Image photoID  = new Image("img//image.png");
 			ImageView photoIDView = new ImageView();
 			photoIDView.setImage(photoID);
-			photoIDView.setFitWidth(350);
+			photoIDView.setFitWidth(400);
 			photoIDView.setPreserveRatio(true);
 			photoIDView.setSmooth(true);
 			photoIDView.setCache(true);
 			VBox v = new VBox();
 			v.getChildren().add(photoIDView);
 			
+
 			contentHBox.getChildren().addAll(buttonSignIn, buttonSignOut);
 			content.setCenter(contentHBox);
 
@@ -261,7 +262,6 @@ public class StartTab extends Tab {
 	 * the submit button will be triggered. 
 	 */
 	public void submitButton(){
-		
 		searchTextField.requestFocus();
 		String selected = (String) list.getSelectionModel().getSelectedItem();
 		String submittedText = "";
@@ -271,7 +271,7 @@ public class StartTab extends Tab {
 					submittedText = subentries.get(0);
 					ArrayList<String> toStringList = data.get("database").getInfoList();
 					if (toStringList.contains(submittedText)){
-						submit(submittedText);
+						submit(submittedText, false);
 					}
 				}
 				else{
@@ -280,9 +280,12 @@ public class StartTab extends Tab {
 				}
 			}
 			else{
-				if (searchTextField.getText().isEmpty()){
+				submittedText = searchTextField.getText();
+				if(data.get("database").getIDList().contains(submittedText)){
+					submit(submittedText,true);
+				}
+				else if (searchTextField.getText().isEmpty()){
 					alert.setWarning(true);
-	
 					alert.play("Please submit your name.");
 				}
 				else{
@@ -292,7 +295,7 @@ public class StartTab extends Tab {
 			}
 		}
 		else{
-			submit(selected);
+			submit(selected, false);
 		}
 	}
 	/**
@@ -300,14 +303,17 @@ public class StartTab extends Tab {
 	 * of arrival is recorded in the log. 
 	 * @param txt Name of student
 	 */
-	public void submit(String txt){
+	public void submit(String txt, boolean id){
 		searchTextField.clear();
 		LocalDate todayDate = LocalDate.now();
-		String date = todayDate.toString();
+		String date = todayDate.toString();		
 		
-		
-		
-		Student newStudent = data.get("database").getStudentByToString(txt);
+		Student newStudent;
+		if(id){
+			newStudent = data.get("database").getStudentByID(txt);
+		}else{
+			newStudent = data.get("database").getStudentByToString(txt);
+		}
 		newStudent.setReason("Late Bus");
 		data.get("in").add(newStudent);
 		

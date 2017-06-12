@@ -588,11 +588,9 @@ public class SettingHBox extends HBox{
 						}
 					};
 				});
-//				columnList.get(i).setSortable(true);
-				Comparator<Student> c = new TimeComparator();
-//				columnList.sort(c);
-				tableSignIn.sort();
+
 			}
+			
 			tableSignIn.getColumns().add(columnList.get(i));
 //					tableSignIn.getColumns().size(), columnList.get(i));
 	
@@ -611,10 +609,11 @@ public class SettingHBox extends HBox{
 		columnList.get(5).setCellValueFactory(new PropertyValueFactory<StudentProperty, 
 				String>("time"));
 
-		columnList.get(5).setSortable(true);
-//		columnList.get(5).setComparator(new TimeComparator());
 		tableSignIn.setItems(goingIn);
-//		tableSignIn.sort();
+		columnList.get(5).setSortType(TableColumn.SortType.ASCENDING);
+		tableSignIn.getSortOrder().add(columnList.get(5));
+		tableSignIn.sort();
+		columnList.get(5).setSortable(true);
 		return tableSignIn;
 
 	}
@@ -650,7 +649,7 @@ public class SettingHBox extends HBox{
 						}
 					};
 				});
-				columnListOut.get(i).setSortable(false);
+				columnListOut.get(i).setSortable(true);
 			}
 			tableSignOut.getColumns().add(columnListOut.get(i));
 		}
@@ -673,6 +672,9 @@ public class SettingHBox extends HBox{
 				String>("arrTime"));
 
 		tableSignOut.setItems(goingOutIn);
+		columnListOut.get(6).setSortType(TableColumn.SortType.ASCENDING);
+		tableSignOut.getSortOrder().add(columnListOut.get(6));
+		columnListOut.get(6).setSortable(true);
 		return tableSignOut;
 	}
 	/**
@@ -688,10 +690,6 @@ public class SettingHBox extends HBox{
 		TextArea emailTextArea = new TextArea();
 		emailTextArea.setWrapText(true);
 		ArrayList<String> emailList = EmailHandler.readEmailList();
-
-
-
-
 
 		dialog.getDialogPane().setContent(emailTextArea);
 		dialog.setResultConverter(dialogButton -> {

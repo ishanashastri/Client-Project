@@ -65,7 +65,6 @@ public class OptionSelect extends VBox{
 		width = w;
 		student = st;
 		tabToBeClosed = close;
-
 		init();
 
 
@@ -94,6 +93,7 @@ public class OptionSelect extends VBox{
 		submitButton = new Button("Submit");
 		submitButton.setAlignment(Pos.BOTTOM_CENTER);
 		submitButton.getStyleClass().add("submitButton");
+		submitButton.requestFocus();
 		submitButton.setDefaultButton(true);
 		submitButton.setOnAction(e -> handle());
 	
@@ -201,7 +201,7 @@ public class OptionSelect extends VBox{
 		optionHBoxArray.get(page).setPrefWidth(buttonWidth);
 
 		buttonVBox.getChildren().add(optionHBoxArray.get(page));
-
+		submitButton.requestFocus();
 	}
 	/**
 	 * Creates new page with two different questions: the first question's options are OptionButtons, while
@@ -266,7 +266,15 @@ public class OptionSelect extends VBox{
 			 bottomHBox.getChildren().add(submitButton);
 		}submitButton.requestFocus();
 	}	
-	
+	/**
+	 * 
+	 * Allows other classes to request focus for the submit button.
+	 */
+	public void submitFocus(){
+		submitButton.requestFocus();
+		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty());
+		System.out.println(submitButton.isFocused());
+	}
 	/**
 	 * The method that handles submitting the data. It places focus on the submit button so it listens to key presses 
 	 * automatically.
@@ -275,7 +283,7 @@ public class OptionSelect extends VBox{
 	 */
 	public void handle() {
 		submitButton.defaultButtonProperty().bind(submitButton.focusedProperty());
-			tabToBeClosed.addData(option);
+		tabToBeClosed.addData(option);
 	}
 
 	

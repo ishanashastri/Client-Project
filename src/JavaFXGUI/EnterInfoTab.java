@@ -181,6 +181,7 @@ public class EnterInfoTab extends Tab{
 		if(goingIn){
 			if (option.get(0).isEmpty()){
 				alert.play();
+				infoOptionSelect.submitFocus();
 			}else{
 				student.setReason(option.get(0));
 				data.get("in").add(student);
@@ -246,6 +247,7 @@ public class EnterInfoTab extends Tab{
 		}else{
 			if(option.get(0).isEmpty() || option.get(1).isEmpty()){
 				alert.play();
+				infoOptionSelect.submitFocus();
 			}else{
 				student.setReason(option.get(0));
 				student.setExcused(option.get(1));

@@ -54,7 +54,7 @@ public class StudentProperty {
 	}
 
 	public void setStudentID(String studentID) {
-		this.studentID.concat("\n"+studentID);
+		this.studentID.set(studentID);
 	}
 
 	public String getReason() {
