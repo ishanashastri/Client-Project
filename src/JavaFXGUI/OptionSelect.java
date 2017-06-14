@@ -43,7 +43,6 @@ public class OptionSelect extends VBox{
 	private Label titleLabel;
 	private int height, width;
 	private HBox bottomHBox;
-	private Label pageNumberLabel;
 	private Button submitButton;
 	private EnterInfoTab tabToBeClosed;
 	private Student student; 
@@ -93,6 +92,7 @@ public class OptionSelect extends VBox{
 		submitButton = new Button("Submit");
 		submitButton.setAlignment(Pos.BOTTOM_CENTER);
 		submitButton.getStyleClass().add("submitButton");
+		submitButton.setMaxSize(100, 4);
 		submitButton.requestFocus();
 		submitButton.setDefaultButton(true);
 		submitButton.setOnAction(e -> handle());
@@ -112,6 +112,7 @@ public class OptionSelect extends VBox{
 
 		bottomHBox = new HBox();
 		bottomHBox.getStyleClass().add("bottomHBox");
+		bottomHBox.setFillHeight(false);
 		getChildren().add(bottomHBox);		
 
 	}
@@ -215,7 +216,12 @@ public class OptionSelect extends VBox{
 			OptionButton opt = new OptionButton(data.get(i), data.get(i), page);
 			left.add(opt);
 		}
+	
 		buttonList.get(page).addAll(left) ;	
+		buttonList.get(page).get(0).getStyleClass().add("optionButton-top");
+		buttonList.get(page).get(1).getStyleClass().add("optionButton-mid");
+		buttonList.get(page).get(2).getStyleClass().add("optionButton-bottom");
+		
 		option.add("");
 		
 		updateState(0);	
@@ -243,6 +249,7 @@ public class OptionSelect extends VBox{
 		});
 		
 		HBox hb = new HBox(60);
+		hb.getStyleClass().add("hbox");
 		hb.getChildren().addAll(l,h,p); 
 		hb.setAlignment(Pos.CENTER);
 			

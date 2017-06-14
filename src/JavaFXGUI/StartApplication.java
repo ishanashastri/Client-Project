@@ -134,6 +134,9 @@ public class StartApplication extends Application {
 		borderPane.prefHeightProperty().bind(scene.heightProperty());
 		borderPane.prefWidthProperty().bind(scene.widthProperty());
 
+		content.getStyleClass().add("background");
+		borderPane.getStyleClass().add("background");
+		
 		borderPane.setCenter(tabPane);
 		content.getChildren().add(borderPane);
 		root.getChildren().add(content);
@@ -141,12 +144,13 @@ public class StartApplication extends Application {
 		primaryStage.show();
 
 		optionBorderPane= new BorderPane();
-		optionBorderPane.getStyleClass().add("optionContent");
+//		optionBorderPane.getStyleClass().add("optionContent");
+		optionBorderPane.getStyleClass().add("background");
 		optionBorderPane.setOpacity(0);
 		contentPane = new HBox();
 
 
-		contentPane.getStyleClass().add("ContentPane");
+//		contentPane.getStyleClass().add("ContentPane");
 
 
 		contentPane.setPrefHeight(primaryStage.getHeight()-100);
@@ -244,9 +248,7 @@ public class StartApplication extends Application {
 					String name = student.get(field.get("NAME"));
 					int grade = Integer.parseInt(student.get(field.get("GR")));
 					Student st = new Student (name,grade,id);
-					System.out.println(student.get(field.get("TIME")));
 					st.setTime(student.get(field.get("TIME")));
-					System.out.println(student.get(field.get("TIME")));
 					st.setReason(student.get(field.get("REASON")));
 					st.setDate(student.get(field.get("DATE")));
 					list.add(st);

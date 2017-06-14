@@ -6,9 +6,11 @@
 
 .root{
 	-fx-font-family: "Avenir";
-
+	-fx-background-color: #000000;
 }
-
+.background{
+	-fx-background-color: #000000;
+}
 .alertMessage{
 	-fx-background-color: #b94a48;
 	-fx-border-color: #b94a48;
@@ -31,22 +33,41 @@
 .sucessText{
 	-fx-text-fill: #fff;
 }
+.signButton{
+  font-size: 22;  
+  -fx-font-weight: bold;
+  -fx-border-radius: 4px;
+  -fx-background-radius: 4px;
+  -fx-padding: 3px 16px 3px 12px;
+  -fx-text-fill: #000000;
+  -fx-background-color: #F9D803;
+  -fx-border-color: #F9D803;
+  }
+.signButton:hover{
+  -fx-text-fill: #F9D803;
+  -fx-background-color: #FFFFFF;
+  -fx-border-color: #285e8e;
+}
+
+.signButton:armed{
+  -fx-text-fill: #ffffff !important;
+  -fx-background-color: #286090 !important; 
+  -fx-border-color: #204d74 !important;
+}
 .button {
   -fx-border-radius: 4px;
   -fx-background-radius: 4px;
   -fx-padding: 3px 17px 3px 12px;
   -fx-text-fill: #000000;
-  -fx-background-color: #FFD700;
-  -fx-border-color: #FFD700;
-  -fx-font-size: 21.5px;
-  width: 20px;
-  height: 10px;
+  -fx-background-color: #F9D803;
+  -fx-border-color: #F9D803;
+  -fx-font-size: 25px;
+  font-weight: bold;
  }
 .button:hover {
   -fx-text-fill: #ffffff;
   -fx-background-color: #3276b1;
   -fx-border-color: #285e8e;
-
 }
 
 .button:armed {
@@ -118,14 +139,12 @@
 	
 }
 
-
-
 .optionSelect{
 	-fx-alignment: center;
 	-fx-background-color: transparent;
-	-fx-border-color: #808080;
-	-fx-border-width: 1;
-	-fx-border-radius: 5;
+	-fx-border-color: #F9D803;
+	-fx-border-width: 5;
+	-fx-border-radius: 10;
 	
 	
 }
@@ -138,7 +157,7 @@
   -fx-text-fill: #000000;
   -fx-border-radius: 0;
   -fx-background-radius: 5 5 0 0;
-  -fx-font-size: 12pt;
+  -fx-font-size: 21.5px;
   
 }
 .optionButton-top {
@@ -147,7 +166,7 @@
   -fx-background-radius: 0 0 0 0;
   -fx-border-radius: 0 0 0 0;
   -fx-background-color: #fff;
-  -fx-border-color: #ccc;
+  -fx-border-color: #F9D803;
   -fx-text-fill: black;
   -fx-border-width: 0 0 0.5 0;
   -fx-font-size: 20px;
@@ -159,7 +178,7 @@
   -fx-background-radius: 0 0 0 0;
   -fx-border-radius: 0 0 0 0;
   -fx-background-color: #fff;
-  -fx-border-color: #ccc;
+  -fx-border-color: #F9D803;
   -fx-text-fill: black;
   -fx-border-width: 0.5 0 0.5 0;
   -fx-font-size: 20px;
@@ -168,7 +187,7 @@
 .optionButton-bottom{
   -fx-max-height: 10000;
   -fx-max-width: 10000;
-  -fx-border-color: #ccc #ccc #337ab7 #ccc;
+  -fx-border-color: #F9D803 #F9D803 #337ab7 #F9D803;
   -fx-text-fill: black;
   -fx-border-width: 0.5 0 0 0;
   -fx-border-radius: 0 0 0 0;
@@ -202,10 +221,12 @@
 
 
 .optionTextFieldOther{
-  -fx-border-color: #ccc #ccc #337ab7 #ccc;
+  -fx-border-color: #F9D803 #F9D803 #F9D803 #F9D803;
   -fx-text-fill: black;
-  -fx-border-width: 0.5 0 0 0;
-  -fx-border-radius: 0 0 0 0;
+  -fx-font-size: 18px;
+  -fx-background-color: white;
+  -fx-border-width: 0.5 0 0.5 0;
+  -fx-border-radius: 0.5 0 0.5 0;
   -fx-background-radius: 0 0 0 0;
   -fx-padding: 0;
 
@@ -215,7 +236,7 @@
 .textFieldOtherButton{
   -fx-font-size: 20pt;
   -fx-background-color: #5cb85c;
-  -fx-border-color: #4cae4c;
+  -fx-border-color: #F9D803;
 
 }
 .textFieldOtherButton:hover {
@@ -231,8 +252,14 @@
 }
 .textFieldOther{
   -fx-min-height: 10;
+  -fx-border-color: #F9D803;
 }
-
+.settings{
+	-fx-background-color: #F9D803;
+	-fx-border-color: #F9D803;
+	-fx-text-fill: white;
+	-fx-font-color: white;
+}
 .submitButton{
   -fx-font-size: 20px;
   -fx-background-color: #5cb85c;
@@ -263,27 +290,32 @@
 }
 
 .bottomHBox{
-  -fx-max-height: 40;
+  -fx-max-height: 50;
   -fx-pref-height: 40;
   -fx-max-width: 10000;
-  -fx-border-color: #ccc #ccc #337ab7 #ccc;
+  -fx-border-color: #F9D803 #F9D803 #F9D803 #F9D803;
   -fx-text-fill: black;
-  -fx-border-width: 0.5 0 0 0; 
-  -fx-border-radius: 0 0 0 0;
+  -fx-border-width: 0.5 0 0.5 0; 
+  -fx-border-radius: 0.5 0 0.5 0;
   -fx-background-radius: 0 0 0 0;
+  -fx-background-color: white;
   -fx-alignment: center;
 }
 
 .buttonVBox {
 	-fx-alignment: center;
 }
-
+.hbox{
+  -fx-background-color: white;
+  -fx-border-width: 0.5 0 0.5 0; 
+  -fx-border-radius: 0.5 0 0.5 0;
+}
 .RadioButton { 
 	-fx-font-size: 18px;
 }
 .tab{
 	-fx-background-color: #FFF;
-	-fx-border-color: #eeeeee;
+	-fx-border-color: #000000;
 	-fx-padding-left: 5;
 	-fx-padding-right: 4;
 	-fx-border-width: 1 1 1 1;
@@ -387,12 +419,13 @@
 
 
 .tab-header-background{
-	-fx-background-color: rgb(231,231,231);
+	-fx-background-color: white;
 }
 
 .tab-pane .tab:selected
 {
     -fx-background-color: #FFF;
+    -fx-border-color: #000000;
 }
 .tab:selected .tab-label { 
     -fx-alignment: CENTER;
@@ -409,7 +442,7 @@
 }
 
 .ContentPane{
-	-fx-background-color: #fff;
+	-fx-background-color: #F9D803;
 	-fx-background-radius: 0;
 	-fx-border-radius: 0;
 	-fx-border-color: #357ebd;
@@ -421,7 +454,7 @@
 	-fx-border-color: transparent;
 	-fx-background-radius: 0;
 	-fx-border-radius: 0;
-	-fx-background-color: #fff;
+	-fx-background-color: #FFFFFF;
 	
 }
 
@@ -637,5 +670,7 @@
 	-fx-background-color: transparent;
 }
 .studentIDLabel{
-	-fx-font-size: 15;
+	-fx-font-color: #FFFFFF;
+	-fx-text-fill: white;
+	-fx-font-size: 17;
 }

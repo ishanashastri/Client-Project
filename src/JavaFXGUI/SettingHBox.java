@@ -157,7 +157,7 @@ public class SettingHBox extends HBox{
 
 		TabPane tableTabPane = new TabPane();
 		tableTabPane.setSide(Side.LEFT);
-		tableTabPane.getStyleClass().add("tabTable");
+		tableTabPane.getStyleClass().add("tab");
 
 		tableSignIn = createTableIn();
 
@@ -317,6 +317,8 @@ public class SettingHBox extends HBox{
 			}
 			writer.println();
 			ArrayList<Student> temp =  data.get("in").getStudentList();
+			TimeComparator c = new TimeComparator();
+			temp.sort(c);
 			for (int i = 0; i < temp.size(); i++){
 				writer.print (temp.get(i).getDate() + ", ");
 				writer.print (temp.get(i).getName() + ", ");
@@ -342,6 +344,7 @@ public class SettingHBox extends HBox{
 			}
 			writerOutIn.println();	
 			temp =  data.get("outIn").getStudentList();
+			data.get("outIn").getStudentList().sort(c);
 			for (int i = 0; i < temp.size(); i++){
 				writerOutIn.print (temp.get(i).getDate() + ", ");
 				writerOutIn.print (temp.get(i).getName() + ", ");

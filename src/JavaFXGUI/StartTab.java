@@ -73,7 +73,8 @@ public class StartTab extends Tab {
 		content.setBottom(menuBar);
 		alert = new AnimatedAlertBox("Submission Sucessful!", false);
 		content.setTop(alert);
-
+		menuBar.getStyleClass().add("background");
+		settings.getStyleClass().add("settings");
 		setContent(content);
 		switchMode();
 	
@@ -132,6 +133,7 @@ public class StartTab extends Tab {
 			submitButton.setDefaultButton(true);
 			submitButton.setPrefSize(100, 20);
 			submitButton.setOnAction(e -> submitButton());
+			submitButton.getStyleClass().add("submitButton");
 			labelHBox.getChildren().addAll(studentIDLabel);
 			labelHBox.setAlignment(Pos.CENTER);
 
@@ -182,18 +184,19 @@ public class StartTab extends Tab {
 
 		}
 		else{
-			HBox contentHBox = new HBox();
+			VBox contentHBox = new VBox();
 			contentHBox.setAlignment(Pos.CENTER);
 			contentHBox.setPadding(new Insets(15, 12, 15, 12));
 			contentHBox.setSpacing(10);
+			contentHBox.getStyleClass().add("background");
 
-			Button buttonSignIn = new Button("Student Sign In");
-			buttonSignIn.setPrefSize(300, 50);
+			Button buttonSignIn = new Button("STUDENT SIGN IN");
+			buttonSignIn.setPrefSize(300, 60);
 			buttonSignIn.setOnAction(e -> moveOn(true));
 			buttonSignIn.getStyleClass().add("signButton");
 
-			Button buttonSignOut = new Button("Student Sign Out");
-			buttonSignOut.setPrefSize(300, 50);
+			Button buttonSignOut = new Button("STUDENT SIGN OUT");
+			buttonSignOut.setPrefSize(300, 60);
 			buttonSignOut.setOnAction(e -> moveOn(false));
 			buttonSignOut.getStyleClass().add("signButton");
 
@@ -301,7 +304,8 @@ public class StartTab extends Tab {
 	/**
 	 * Handles late bus entries. The student's reason is automatically set as "Late Bus," and their time
 	 * of arrival is recorded in the log. 
-	 * @param txt Name of student
+	 * @param txt Keyboard input of student (name or ID)
+	 * @param id true if the student is entering their ID, false if student is entering name
 	 */
 	public void submit(String txt, boolean id){
 		searchTextField.clear();
@@ -328,6 +332,8 @@ public class StartTab extends Tab {
 		try {
 			PrintWriter printWriter = new PrintWriter (f);
 			printWriter.println("DATE,ID,NAME,GR,TIME,REASON");
+			TimeComparator c = new TimeComparator();
+			data.get("in").getStudentList().sort(c);
 			for(Student st : data.get("in").getStudentList()){
 				printWriter.print("\"" + st.getDate() + "\",");
 				printWriter.print("\"" + st.getStudentID() + "\",");

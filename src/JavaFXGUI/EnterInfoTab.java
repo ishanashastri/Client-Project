@@ -81,8 +81,6 @@ public class EnterInfoTab extends Tab{
 		while(file.hasNext()){
 			if(goingIn){
 				stringData = file.nextLine();
-				System.out.println(stringData+ ", " + v + ", " + version);
-				
 				if (stringData.equals("+++")){
 					v++;
 				}
@@ -199,6 +197,8 @@ public class EnterInfoTab extends Tab{
 				try {
 					PrintWriter printWriter = new PrintWriter (f);
 					printWriter.println("DATE,ID,NAME,GR,TIME,REASON");
+					TimeComparator c = new TimeComparator();
+					data.get("in").getStudentList().sort(c);
 					for(Student st : data.get("in").getStudentList()){
 						printWriter.print("\"" + st.getDate() + "\",");
 						printWriter.print("\"" + st.getStudentID() + "\",");
@@ -225,6 +225,8 @@ public class EnterInfoTab extends Tab{
 				try {
 					PrintWriter printWriter = new PrintWriter (f);
 					printWriter.println("DATE,ID,NAME,GR,REASON,EXCUSED,TIME,ARRTIME");
+					TimeComparator c = new TimeComparator();
+					data.get("outin").getStudentList().sort(c);
 					for(Student st : data.get("outin").getStudentList()){
 						printWriter.print("\"" + st.getDate() + "\",");
 						printWriter.print("\"" + st.getStudentID() + "\",");
@@ -266,6 +268,8 @@ public class EnterInfoTab extends Tab{
 				try {
 					PrintWriter printWriter = new PrintWriter (f);
 					printWriter.println("DATE,ID,NAME,GR,TIME,REASON");
+					TimeComparator c = new TimeComparator();
+					data.get("in").getStudentList().sort(c);
 					for(Student st : data.get("in").getStudentList()){
 						printWriter.print("\"" + st.getDate() + "\",");
 						printWriter.print("\"" + st.getStudentID() + "\",");
@@ -292,6 +296,8 @@ public class EnterInfoTab extends Tab{
 				try {
 					PrintWriter printWriter = new PrintWriter (f);
 					printWriter.println("DATE,ID,NAME,GR,REASON,EXCUSED,TIME,ARRTIME");
+					TimeComparator c = new TimeComparator();
+					data.get("outin").getStudentList().sort(c);
 					for(Student st : data.get("outin").getStudentList()){
 						printWriter.print("\"" + st.getDate() + "\",");
 						printWriter.print("\"" + st.getStudentID() + "\",");
