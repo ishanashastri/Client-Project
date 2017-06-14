@@ -107,7 +107,8 @@ public class StudentList {
 	public ArrayList<Student> getStudentList(){
 		return new ArrayList<Student>(nameMap.values());
 	}
-	/**	 
+	
+ 	/**	 
 	 * Gets size of the StudentList
 	 * @param other Student to be checked
 	 * @return	Returns if Student is in the StudentList.

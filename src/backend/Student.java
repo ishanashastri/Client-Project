@@ -89,11 +89,7 @@ public class Student implements Comparable<Student>{
 
 
 	public void setReason(String reason) {
-//		if(this.reason != null){
-//			this.reason += ", " +reason;			
-//		}else{
-			this.reason=reason;	
-//		}
+		this.reason=reason;
 	}
  
 
@@ -110,14 +106,7 @@ public class Student implements Comparable<Student>{
 	}
 	
 	public void setTime(String t){
-//		if(!this.time.contains("None")){
-//			System.out.println("time: " + this.time + " --> " + t);
-//			time += ", " + t;
-//		}else{
-//			System.out.println("time: " + this.time);
-			this.time=t;
-//			System.out.println("time: " + this.time + " --> " + t);
-//		}
+		this.time=t;
 	}
 	public String getDate(){
 		return date;
@@ -132,15 +121,10 @@ public class Student implements Comparable<Student>{
 		this.excused = excused;
 	}
 	public void setArrTime(String arrTime) {
-//		if(this.arrTime.contains("None")){
-			this.arrTime = arrTime;
-//		}else{
-//			this.arrTime += ", " + arrTime;	
-//		} 
-//			System.out.println("time: " + this.arrTime + " --> " + arrTime);
+		this.arrTime = arrTime;
 	}
 	public String getArrTime() {
-		return arrTime;
+		return this.arrTime;
 	}
 
 	public int compareTo(Student o) {

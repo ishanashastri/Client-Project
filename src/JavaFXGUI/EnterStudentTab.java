@@ -279,17 +279,10 @@ public class EnterStudentTab extends Tab {
 		EnterInfoTab tab3;
 		boolean outin = false;
 		int j = 0;
-		for(int i = 0;i<data.get("outin").getOutInList().size();i++){
-			System.out.println("outin: "+ data.get("outin").getOutInList().get(i));
-		}
 		for (int i =0; i < data.get("outin").getStudentList().size(); i++){
-			System.out.println(data.get("outin").getStudentList().get(i));
-			
 			if (student.equals(data.get("outin").getStudentList().get(i))){
-				if(!data.get("outin").getOutInList().contains(student)){
-					j = i;
-					outin=true;
-				}
+				j = i;
+				outin=true;
 			}
 		}
 		
@@ -299,7 +292,6 @@ public class EnterStudentTab extends Tab {
 			String time = formatter.format(todayTime);
 			
 			data.get("outin").getStudentList().get(j).setArrTime(time);
-			System.out.println(data.get("outin").getStudentList().get(j).getArrTime());
 			
 			LocalDate todayDate = LocalDate.now();
 			String date = todayDate.toString();
